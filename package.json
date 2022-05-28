@@ -1,0 +1,24 @@
+{
+  "name": "covid-timeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdy-peters/covid19-timeline.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cdy-peters/covid19-timeline/issues"
+  },
+  "homepage": "https://github.com/cdy-peters/covid19-timeline#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
