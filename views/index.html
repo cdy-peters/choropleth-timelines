@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+    <div id="slider">
+        <input id="date_slider" type="range" min="0" style="width: 600px;">
+        <p>Value: <span id="date_value"></span></p>
+    </div>
+
     <div id="main">
         <h1>Covid-19 Timeline</h1>
         <svg id="choropleth" width="1200" height="800"></svg>
@@ -17,5 +22,8 @@
 
     <!-- JS Code -->
     <script src="js/choropleth.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/home.js"></script>
 </body>
 </html>

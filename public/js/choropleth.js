@@ -3,7 +3,7 @@ const svg = d3.select("svg"),
   height = +svg.attr("height");
 
 // Map and projection
-const path = d3.geoPath();
+
 const projection = d3
   .geoMercator()
   .scale(150)
@@ -36,82 +36,87 @@ const tooltip = d3
   .style("opacity", 0);
 
 // Load external data and boot
-const COVID_DATASET = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv"
-const COUNTRY_DATASET = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
+const COUNTRY_DATASET =
+  "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
+const COVID_DATASET =
+  "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv";
 
-var covid_data = {}
+var covid_data = {};
 
-Promise.all([
-  d3.json(
-    COUNTRY_DATASET
-  ),
-  d3.csv(
-    COVID_DATASET,
-    function (d) {
-      data.set(d.iso_code);
-
-      if (!(d.date in covid_data)) {
-        covid_data[d.date] = {};
-      }
-      covid_data[d.date][d.iso_code] = {
-        total_cases: d.total_cases,
-        new_cases: d.new_cases,
-        total_deaths: d.total_deaths,
-        new_deaths: d.new_deaths
-      }
+var promises = [
+  d3.json(COUNTRY_DATASET),
+  d3.csv(COVID_DATASET, function (d) {
+    if (!(data.get(d.date))) {
+      data.set(d.date, {})
     }
-  ),
-]).then(function (loadData) {
-  let topo = loadData[0];
+    data.get(d.date)[d.iso_code] = {
+      total_cases: +d.total_cases,
+      new_cases: +d.new_cases,
+      total_deaths: +d.total_deaths,
+      new_deaths: +d.new_deaths,
+    }
+  }),
+];
 
-  let mouseOver = function (e, d) {
-    d3.selectAll(".country").style("opacity", 0.5);
+Promise.all(promises).then(ready);
 
-    d3.select(this).style("opacity", 1).style("stroke", "black");
-
-    tooltip
-      .style("left", e.pageX + "px")
-      .style("top", e.pageY + "px")
-      .style("opacity", 1)
-      .text(d.properties.name);
-  };
-
-  let mouseLeave = function () {
-    d3.selectAll(".country").style("opacity", 1).style("stroke", "transparent");
-
-    tooltip.style("opacity", 0);
-  };
-
-  // Draw choropleth
+function ready([world]) {
+  console.log(data)
   svg
     .append("g")
+    .attr("class", "countries")
     .selectAll("path")
-    .data(topo.features)
+    .data(world.features)
     .join("path")
-
+    
     // Draw countries
     .attr("d", d3.geoPath().projection(projection))
-
     .attr("data-name", function (d) {
       return d.properties.name;
     })
 
-    // Set color of countries
+    // Color countries
     .attr("fill", function (d) {
-      covid_data_country = covid_data['2021-08-02'][d.id]
+      covid_data_country = data.get('2021-08-02')[d.id]
+
       if (covid_data_country) {
-        return rColorScale(covid_data_country.total_cases);
+        return rColorScale(covid_data_country.total_cases)
       } else {
-        return "grey";
+        return 'grey'
       }
     })
 
-    .attr("class", function (d) {
-      return "country";
-    })
+    .attr("class", "country")
     .attr("id", function (d) {
       return d.id;
     })
-    .on("mouseover", mouseOver)
-    .on("mouseleave", mouseLeave);
-});
+
+    // Hover
+    .on("mouseover", function (e, d) {
+      covid_data_country = data.get('2021-08-02')[d.id]
+
+      d3.selectAll(".country").style("opacity", 0.3);
+
+      d3.select(this).style("opacity", 1).style("stroke", "black");
+
+      if (covid_data_country) {
+        tooltip.html(d.properties.name + ': ' + covid_data_country.total_cases);
+      } else {
+        tooltip.html(d.properties.name + ': No data');
+      }  
+
+      tooltip
+        .transition()
+        .duration(200)
+        .style("opacity", 0.9)
+        .style("left", e.pageX + 5 + "px")
+        .style("top", e.pageY - 28 + "px");
+    })
+    .on("mouseout", function (e, d) {
+      d3.selectAll(".country")
+        .style("opacity", 1)
+        .style("stroke", "transparent");
+
+      tooltip.transition().duration(500).style("opacity", 0);
+    });
+}
