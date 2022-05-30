@@ -3,7 +3,6 @@ const svg = d3.select("svg"),
   height = +svg.attr("height");
 
 // Map and projection
-
 const projection = d3
   .geoMercator()
   .scale(150)
@@ -41,69 +40,88 @@ const COUNTRY_DATASET =
 const COVID_DATASET =
   "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv";
 
-var covid_data = {};
+var covid_data_raw = {};
+var covid_data;
 
 var promises = [
   d3.json(COUNTRY_DATASET),
   d3.csv(COVID_DATASET, function (d) {
-    if (!(data.get(d.date))) {
-      data.set(d.date, {})
+    if (!(d.date in covid_data_raw)) {
+      covid_data_raw[d.date] = {};
     }
-    data.get(d.date)[d.iso_code] = {
+    covid_data_raw[d.date][d.iso_code] = {
       total_cases: +d.total_cases,
       new_cases: +d.new_cases,
       total_deaths: +d.total_deaths,
       new_deaths: +d.new_deaths,
-    }
+    };
   }),
 ];
 
 Promise.all(promises).then(ready);
 
 function ready([world]) {
-  console.log(data)
+  // Draw the map
   svg
     .append("g")
     .attr("class", "countries")
     .selectAll("path")
     .data(world.features)
     .join("path")
-    
+
     // Draw countries
     .attr("d", d3.geoPath().projection(projection))
     .attr("data-name", function (d) {
       return d.properties.name;
     })
-
-    // Color countries
-    .attr("fill", function (d) {
-      covid_data_country = data.get('2021-08-02')[d.id]
-
-      if (covid_data_country) {
-        return rColorScale(covid_data_country.total_cases)
-      } else {
-        return 'grey'
-      }
-    })
-
-    .attr("class", "country")
     .attr("id", function (d) {
       return d.id;
+    });
+
+  // Sort covid data object by date
+  covid_data = Object.keys(covid_data_raw)
+    .sort()
+    .reduce((obj, key) => {
+      obj[key] = covid_data_raw[key];
+      return obj;
+    }, {});
+
+  // Fill countries
+  var idx = Object.keys(covid_data).length - 1;
+  // Set slider to last date
+  document.getElementById("date_slider").setAttribute("max", idx);
+  document.getElementById("date_slider").setAttribute("value", idx);
+
+  fill_countries(Object.keys(covid_data)[idx]);
+}
+
+function fill_countries(date) {
+  d3.selectAll(".countries path")
+    // Color countries
+    .style("fill", function (d) {
+      covid_data_country = covid_data[date][d.id];
+
+      if (covid_data_country) {
+        return rColorScale(covid_data_country.total_cases);
+      } else {
+        return "grey";
+      }
     })
+    .attr("class", "country")
 
     // Hover
     .on("mouseover", function (e, d) {
-      covid_data_country = data.get('2021-08-02')[d.id]
+      covid_data_country = covid_data[date][d.id];
 
       d3.selectAll(".country").style("opacity", 0.3);
 
       d3.select(this).style("opacity", 1).style("stroke", "black");
 
       if (covid_data_country) {
-        tooltip.html(d.properties.name + ': ' + covid_data_country.total_cases);
+        tooltip.html(d.properties.name + ": " + covid_data_country.total_cases);
       } else {
-        tooltip.html(d.properties.name + ': No data');
-      }  
+        tooltip.html(d.properties.name + ": No data");
+      }
 
       tooltip
         .transition()
