@@ -106,19 +106,20 @@ var promises = [
     if (!(d.date in covid_data_raw)) {
       covid_data_raw[d.date] = {};
     }
+
     covid_data_raw[d.date][d.iso_code] = {
-      total_cases: +d.total_cases,
-      new_cases: +d.new_cases,
-      total_deaths: +d.total_deaths,
-      new_deaths: +d.new_deaths,
-      icu_patients: +d.icu_patients,
-      hosp_patients: +d.hosp_patients,
-      total_tests: +d.total_tests,
-      new_tests: +d.new_tests,
-      total_vaccinations: +d.total_vaccinations,
-      people_vaccinated: +d.people_vaccinated,
-      people_fully_vaccinated: +d.people_fully_vaccinated,
-      new_vaccinations: +d.new_vaccinations,
+      total_cases: (d.total_cases === '' ? null : +d.total_cases),
+      new_cases: (d.new_cases === '' ? null : +d.new_cases),
+      total_deaths: (d.total_deaths === '' ? null : +d.total_deaths),
+      new_deaths: (d.new_deaths === '' ? null : +d.new_deaths),
+      icu_patients: (d.icu_patients === '' ? null : +d.icu_patients),
+      hosp_patients: (d.hosp_patients === '' ? null : +d.hosp_patients),
+      total_tests: (d.total_tests === '' ? null : +d.total_tests),
+      new_tests: (d.new_tests === '' ? null : +d.new_tests),
+      total_vaccinations: (d.total_vaccinations === '' ? null : +d.total_vaccinations),
+      people_vaccinated: (d.people_vaccinated === '' ? null : +d.people_vaccinated),
+      people_fully_vaccinated: (d.people_fully_vaccinated === '' ? null : +d.people_fully_vaccinated),
+      new_vaccinations: (d.new_vaccinations === '' ? null : +d.new_vaccinations),
     };
   }),
 ];
@@ -168,7 +169,7 @@ function fill_countries(date, data_type) {
     .style("fill", function (d) {
       covid_data_country = covid_data[date][d.id];
 
-      if (covid_data_country) {
+      if (covid_data_country && covid_data_country[data_type] !== null) {
         return color_scale(covid_data_country, data_type);
       } else {
         return "grey";
@@ -184,7 +185,7 @@ function fill_countries(date, data_type) {
 
       d3.select(this).style("opacity", 1).style("stroke", "black");
 
-      if (covid_data_country) {
+      if (covid_data_country && covid_data_country[data_type] !== null) {
         tooltip.html(d.properties.name + ": " + covid_data_country[data_type]);
       } else {
         tooltip.html(d.properties.name + ": No data");
@@ -242,7 +243,6 @@ function color_scale(covid_data_country, data_type) {
 function slider_change(e) {
   date = Object.keys(covid_data)[e.value];
   document.getElementById("date_value").innerHTML = date;
-  console.log(prev_radio, date);
 
   fill_countries(date, prev_radio);
 }
@@ -252,7 +252,6 @@ for (var i = 0; i < radios.length; i++) {
   radios[i].onclick = function () {
     if (this.value !== prev_radio) {
       prev_radio = this.value;
-      console.log(this.value, date);
 
       fill_countries(date, this.value);
     }
