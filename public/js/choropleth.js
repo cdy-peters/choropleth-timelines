@@ -88,11 +88,20 @@ function ready([world]) {
 
   // Fill countries
   var idx = Object.keys(covid_data).length - 1;
+  var date = Object.keys(covid_data)[idx];
   // Set slider to last date
   document.getElementById("date_slider").setAttribute("max", idx);
   document.getElementById("date_slider").setAttribute("value", idx);
+  document.getElementById("date_value").innerHTML = date;
 
-  fill_countries(Object.keys(covid_data)[idx]);
+  fill_countries(date);
+}
+
+function test(e) {
+  date = Object.keys(covid_data)[e.value];
+  document.getElementById("date_value").innerHTML = date;
+
+  fill_countries(date)
 }
 
 function fill_countries(date) {
