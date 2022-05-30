@@ -189,7 +189,8 @@ function fill_countries(date, data_type) {
       d3.select(this).style("opacity", 1).style("stroke", "black");
 
       if (covid_data_country && covid_data_country[data_type] !== null) {
-        tooltip.html(d.properties.name + ": " + covid_data_country[data_type]);
+        
+        tooltip.html(d.properties.name + ": " + covid_data_country[data_type] + set_suffix(data_type));
       } else {
         tooltip.html(d.properties.name + ": No data");
       }
@@ -208,6 +209,36 @@ function fill_countries(date, data_type) {
 
       tooltip.transition().duration(500).style("opacity", 0);
     });
+}
+
+// Set suffix
+function set_suffix(data_type) {
+  switch(data_type) {
+    case "total_cases":
+      return " Total Cases"
+    case "new_cases":
+      return " New Cases"
+    case "total_deaths":
+      return " Total Deaths"
+    case "new_deaths":
+      return " New Deaths"
+    case "icu_patients":
+      return " ICU Patients"
+    case "hosp_patients":
+      return " Hospitalized Patients"
+    case "total_tests":
+      return " Total Tests"
+    case "new_tests":
+      return " New Tests"
+    case "total_vaccinations":
+      return " Total Vaccinations"
+    case "people_vaccinated":
+      return " People Vaccinated"
+    case "people_fully_vaccinated":
+      return " People Fully Vaccinated"
+    case "new_vaccinations":
+      return " New Vaccinations"
+  }
 }
 
 // Set color scale
