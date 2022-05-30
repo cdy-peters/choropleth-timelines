@@ -16,30 +16,73 @@ const projection = d3
 // Data and color scale
 let data = new Map();
 
-const rColorScale = d3
-  .scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-  .range(d3.schemeReds[7]);
 
-const gColorScale = d3
-  .scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-  .range(d3.schemeGreens[7]);
 
-const bColorScale = d3
+const tc_ColorScale = d3
   .scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .domain([10000, 100000, 1000000, 5000000, 10000000, 50000000, 100000000])
   .range(d3.schemeBlues[7]);
 
-const oColorScale = d3
+const nc_ColorScale = d3
   .scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .domain([1000, 10000, 100000, 500000, 1000000, 2000000])
+  .range(d3.schemeBlues[7]);
+
+
+const td_ColorScale = d3
+  .scaleThreshold()
+  .domain([1000, 10000, 100000, 500000, 1000000, 2000000])
+  .range(d3.schemeReds[7]);
+
+const nd_ColorScale = d3
+  .scaleThreshold()
+  .domain([25, 100, 500, 1000, 5000, 10000])
+  .range(d3.schemeReds[7]);
+
+
+const ip_ColorScale = d3
+  .scaleThreshold()
+  .domain([100, 500, 1000, 5000, 10000, 50000])
   .range(d3.schemeOranges[7]);
 
-const yColorScale = d3
+const hp_ColorScale = d3
   .scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .domain([500, 1000, 5000, 10000, 100000, 200000])
+  .range(d3.schemeOranges[7]);
+
+
+const tt_ColorScale = d3
+  .scaleThreshold()
+  .domain([5000000, 10000000, 100000000, 500000000, 1000000000, 10000000000])
   .range(d3.schemePurples[7]);
+
+const nt_ColorScale = d3
+  .scaleThreshold()
+  .domain([1000, 10000, 100000, 500000, 1000000, 5000000])
+  .range(d3.schemePurples[7]);
+
+
+const tv_ColorScale = d3
+  .scaleThreshold()
+  .domain([10000, 100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .range(d3.schemeGreens[7]);
+
+const pv_ColorScale = d3
+  .scaleThreshold()
+  .domain([10000, 100000, 1000000, 10000000, 100000000, 250000000, 1000000000])
+  .range(d3.schemeGreens[7]);
+
+const pfv_ColorScale = d3
+  .scaleThreshold()
+  .domain([10000, 100000, 1000000, 10000000, 100000000, 500000000, 1000000000, 5000000000])
+  .range(d3.schemeGreens[7]);
+
+const nv_ColorScale = d3
+  .scaleThreshold()
+  .domain([1000, 10000, 100000, 1000000, 10000000, 50000000])
+  .range(d3.schemeGreens[7]);
+
+
 
 // Tooltip
 const tooltip = d3
@@ -68,13 +111,10 @@ var promises = [
       new_cases: +d.new_cases,
       total_deaths: +d.total_deaths,
       new_deaths: +d.new_deaths,
-      icu_patients: +d.icu_patients, // Daily or weekly?
-      hosp_patients: +d.hosp_patients, // Daily or weekly?
-      total_tests: +d.total_tests, // Consider units
-      new_tests: +d.new_tests, // Consider units
-      // positive_rate: +d.positive_rate,
-      // tests_per_case: +d.tests_per_case,
-      // tests_units: d.tests_units,
+      icu_patients: +d.icu_patients,
+      hosp_patients: +d.hosp_patients,
+      total_tests: +d.total_tests,
+      new_tests: +d.new_tests,
       total_vaccinations: +d.total_vaccinations,
       people_vaccinated: +d.people_vaccinated,
       people_fully_vaccinated: +d.people_fully_vaccinated,
@@ -170,29 +210,29 @@ function fill_countries(date, data_type) {
 function color_scale(covid_data_country, data_type) {
   switch (data_type) {
     case "total_cases":
-      return bColorScale(covid_data_country[data_type]);
+      return tc_ColorScale(covid_data_country[data_type]);
     case "new_cases":
-      return bColorScale(covid_data_country[data_type]);
+      return nc_ColorScale(covid_data_country[data_type]);
     case "total_deaths":
-      return rColorScale(covid_data_country[data_type]);
+      return td_ColorScale(covid_data_country[data_type]);
     case "new_deaths":
-      return rColorScale(covid_data_country[data_type]);
+      return nd_ColorScale(covid_data_country[data_type]);
     case "icu_patients":
-      return oColorScale(covid_data_country[data_type]);
+      return ip_ColorScale(covid_data_country[data_type]);
     case "hosp_patients":
-      return oColorScale(covid_data_country[data_type]);
+      return hp_ColorScale(covid_data_country[data_type]);
     case "total_tests":
-      return yColorScale(covid_data_country[data_type]);
+      return tt_ColorScale(covid_data_country[data_type]);
     case "new_tests":
-      return yColorScale(covid_data_country[data_type]);
+      return nt_ColorScale(covid_data_country[data_type]);
     case "total_vaccinations":
-      return gColorScale(covid_data_country[data_type]);
+      return tv_ColorScale(covid_data_country[data_type]);
     case "people_vaccinated":
-      return gColorScale(covid_data_country[data_type]);
+      return pv_ColorScale(covid_data_country[data_type]);
     case "people_fully_vaccinated":
-      return gColorScale(covid_data_country[data_type]);
+      return pfv_ColorScale(covid_data_country[data_type]);
     case "new_vaccinations":
-      return gColorScale(covid_data_country[data_type]);
+      return nv_ColorScale(covid_data_country[data_type]);
     default:
       return "grey";
   }
