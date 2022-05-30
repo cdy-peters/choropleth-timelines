@@ -9,7 +9,10 @@
 <body>
     <div id="slider">
         <input id="date_slider" type="range" min="0" style="width: 600px;" oninput="slider_change(this)">
-        <p>Value: <span id="date_value"></span></p>
+    </div>
+
+    <div id="date">
+        <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
     </div>
 
     <form name="data_type_radio">
@@ -34,7 +37,8 @@
 
     <div id="main">
         <h1>Covid-19 Timeline</h1>
-        <svg id="choropleth" width="1200" height="800"></svg>
+        <p style="position: absolute;"><strong>Date:</strong> <span id="date_value"></span></p>
+        <svg id="choropleth" width="1000" height="800"></svg>
     </div>
     
     <!-- JS Libraries -->

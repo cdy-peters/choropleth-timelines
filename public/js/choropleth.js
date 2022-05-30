@@ -155,10 +155,13 @@ function ready([world]) {
   // Fill countries
   var idx = Object.keys(covid_data).length - 1;
   date = Object.keys(covid_data)[idx];
-  // Set slider to last date
+  // Set slider and date picker to last date
   document.getElementById("date_slider").setAttribute("max", idx);
   document.getElementById("date_slider").setAttribute("value", idx);
   document.getElementById("date_value").innerHTML = date;
+
+  document.getElementById("date_picker").setAttribute("max", date);
+  document.getElementById("date_picker").setAttribute("value", date);
 
   fill_countries(date, "total_cases");
 }
@@ -242,6 +245,19 @@ function color_scale(covid_data_country, data_type) {
 // On slider change
 function slider_change(e) {
   date = Object.keys(covid_data)[e.value];
+
+  document.getElementById("date_picker").setAttribute("value", date);
+  document.getElementById("date_value").innerHTML = date;
+
+  fill_countries(date, prev_radio);
+}
+
+// On date picker change
+function picker_change(e) {
+  date = e.value;
+  idx = Object.keys(covid_data).indexOf(date);
+
+  document.getElementById("date_slider").setAttribute("value", idx);
   document.getElementById("date_value").innerHTML = date;
 
   fill_countries(date, prev_radio);
