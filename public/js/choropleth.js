@@ -433,8 +433,23 @@ for (var i = 0; i < radios.length; i++) {
     if (this.value !== prev_radio) {
       prev_radio = this.value;
 
-      fill_countries(date, this.value);
+      document.getElementById('data_type_selection').value = this.value;
+
+      fill_countries(date, prev_radio);
       legend(prev_radio);
     }
   };
+}
+
+function select_change(e) {
+  prev_radio = e.value;
+
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].value === prev_radio) {
+      radios[i].checked = true;
+    }
+  }
+
+  fill_countries(date, prev_radio);
+  legend(prev_radio);
 }

@@ -7,40 +7,60 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <div style="display: flex; justify-content: center;">
-        <div id="date" style="float: left;">
-            <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
+    <div id="test_div">
+        <form id="data_type_form" name="data_type_radio">
+            <h5>Cases</h5>
+            <input type="radio" name="data_type" value="total_cases" checked>Total Cases<br>
+            <input type="radio" name="data_type" value="new_cases">New Cases<br>
+            <h5>Deaths</h5>
+            <input type="radio" name="data_type" value="total_deaths">Total Deaths<br>
+            <input type="radio" name="data_type" value="new_deaths">New Deaths<br>
+            <h5>Hospital & ICU</h5>
+            <input type="radio" name="data_type" value="icu_patients">ICU Patients<br>
+            <input type="radio" name="data_type" value="hosp_patients">Hospital Patients<br>
+            <h5>Tests</h5>
+            <input type="radio" name="data_type" value="total_tests">Total Tests<br>
+            <input type="radio" name="data_type" value="new_tests">New Tests<br>
+            <h5>Vaccinations</h5>
+            <input type="radio" name="data_type" value="total_vaccinations">Total Vaccinations<br>
+            <input type="radio" name="data_type" value="people_vaccinated">People Vaccinated<br>
+            <input type="radio" name="data_type" value="people_fully_vaccinated">People Fully Vaccinated<br>
+            <input type="radio" name="data_type" value="new_vaccinations">New Vaccinations<br>
+        </form>
+
+
+        <div id="chart_div">
+            <div id="date_selection">
+                <select id="data_type_selection" onchange="select_change(this)">
+                    <optgroup label="Cases"></optgroup>
+                    <option value="total_cases">Total Cases</option>
+                    <option value="new_cases">New Cases</option>
+                    <optgroup label="Deaths"></optgroup>
+                    <option value="total_deaths">Total Deaths</option>
+                    <option value="new_deaths">New Deaths</option>
+                    <optgroup label="Hospital & ICU"></optgroup>
+                    <option value="icu_patients">ICU Patients</option>
+                    <option value="hosp_patients">Hospital Patients</option>
+                    <optgroup label="Tests"></optgroup>
+                    <option value="total_tests">Total Tests</option>
+                    <option value="new_tests">New Tests</option><br>
+                    <optgroup label="Vaccinations"></optgroup>
+                    <option value="total_vaccinations">Total Vaccinations</option>
+                    <option value="people_vaccinated">People Vaccinated</option>
+                    <option value="people_fully_vaccinated">People Fully Vaccinated</option>
+                    <option value="new_vaccinations">New Vaccinations</option>
+                </select>
+
+                <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
+                <input id="date_slider" type="range" min="0" style="width: 600px;" oninput="slider_change(this)">
+            </div>
+
+            <div id="main">
+                <h1>Covid-19 Timeline</h1>
+                <p><strong>Date:</strong> <span id="date_value"></span></p>
+                <svg id="choropleth" width="1000" height="800"></svg>
+            </div>
         </div>
-
-        <div id="slider">
-            <input id="date_slider" type="range" min="0" style="width: 600px;" oninput="slider_change(this)">
-        </div>
-    </div>
-
-    <form name="data_type_radio">
-        <h5>Cases</h5>
-        <input type="radio" name="data_type" value="total_cases" checked>Total Cases<br>
-        <input type="radio" name="data_type" value="new_cases">New Cases<br>
-        <h5>Deaths</h5>
-        <input type="radio" name="data_type" value="total_deaths">Total Deaths<br>
-        <input type="radio" name="data_type" value="new_deaths">New Deaths<br>
-        <h5>Hospital & ICU</h5>
-        <input type="radio" name="data_type" value="icu_patients">ICU Patients<br>
-        <input type="radio" name="data_type" value="hosp_patients">Hospital Patients<br>
-        <h5>Tests & Positivity</h5>
-        <input type="radio" name="data_type" value="total_tests">Total Tests<br>
-        <input type="radio" name="data_type" value="new_tests">New Tests<br>
-        <h5>Vaccinations</h5>
-        <input type="radio" name="data_type" value="total_vaccinations">Total Vaccinations<br>
-        <input type="radio" name="data_type" value="people_vaccinated">People Vaccinated<br>
-        <input type="radio" name="data_type" value="people_fully_vaccinated">People Fully Vaccinated<br>
-        <input type="radio" name="data_type" value="new_vaccinations">New Vaccinations<br>
-    </form>
-
-    <div id="main">
-        <h1>Covid-19 Timeline</h1>
-        <p style="position: absolute;"><strong>Date:</strong> <span id="date_value"></span></p>
-        <svg id="choropleth" width="1000" height="800"></svg>
     </div>
     
     <!-- JS Libraries -->
