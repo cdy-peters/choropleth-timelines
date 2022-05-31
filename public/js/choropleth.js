@@ -223,7 +223,7 @@ function legend(data_type) {
 
   const legend = svg.append("g").attr("id", "legend");
   const color_scale = set_color_scale(data_type)
-  const legend_title = set_legend_title(data_type)
+  const { legend_title, legend_unit } = set_legend_details(data_type)
 
   const legend_entry = legend
     .selectAll("g.legend")
@@ -262,9 +262,9 @@ function legend(data_type) {
       return height - i * ls_h - ls_h - 6;
     })
     .text(function (d, i) {
-      if (i === 0) return "< " + d[1] / 1000000 + " m";
-      if (d[1] < d[0]) return d[0] / 1000000 + " m +";
-      return d[0] / 1000000 + " m - " + d[1] / 1000000 + " m";
+      if (i === 0) return "< " + d[1] / legend_unit;
+      if (d[1] < d[0]) return d[0] / legend_unit + " +";
+      return d[0] / legend_unit + " - " + d[1] / legend_unit;
     });
 
   legend
@@ -336,33 +336,57 @@ function set_color_scale(data_type) {
   }
 }
 
-// Set legend title
-function set_legend_title(data_type) {
+// Set legend details
+function set_legend_details(data_type) {
   switch (data_type) {
     case "total_cases":
-      return 'Total Cases (millions)';
+      legend_title = 'Total Cases (millions)';
+      legend_unit = 1000000
+      return { legend_title, legend_unit }
     case "new_cases":
-      return 'New Cases (millions)';
+      legend_title = 'New Cases (thousands)';
+      legend_unit = 1000
+      return { legend_title, legend_unit }
     case "total_deaths":
-      return 'Total Deaths (millions)';
+      legend_title = 'Total Deaths (thousands)';
+      legend_unit = 1000
+      return { legend_title, legend_unit }
     case "new_deaths":
-      return 'New Deaths (millions)';
+      legend_title = 'New Deaths (hundreds)';
+      legend_unit = 100
+      return { legend_title, legend_unit }
     case "icu_patients":
-      return 'ICU Patients (millions)';
+      legend_title = 'ICU Patients (hundreds)';
+      legend_unit = 100
+      return { legend_title, legend_unit }
     case "hosp_patients":
-      return 'Hospitalized Patients (millions)';
+      legend_title = 'Hospitalized Patients (thousands)';
+      legend_unit = 1000
+      return { legend_title, legend_unit }
     case "total_tests":
-      return 'Total Tests (millions)';
+      legend_title = 'Total Tests (millions)';
+      legend_unit = 1000000
+      return { legend_title, legend_unit }
     case "new_tests":
-      return 'New Tests (millions)';
+      legend_title = 'New Tests (thousands)';
+      legend_unit = 1000
+      return { legend_title, legend_unit }
     case "total_vaccinations":
-      return 'Total Vaccinations (millions)';
+      legend_title = 'Total Vaccinations (millions)';
+      legend_unit = 1000000
+      return { legend_title, legend_unit }
     case "people_vaccinated":
-      return 'People Vaccinated (millions)';
+      legend_title = 'People Vaccinated (millions)';
+      legend_unit = 1000000
+      return { legend_title, legend_unit }
     case "people_fully_vaccinated":
-      return 'People Fully Vaccinated (millions)';
+      legend_title = 'People Fully Vaccinated (millions)';
+      legend_unit = 1000000
+      return { legend_title, legend_unit }
     case "new_vaccinations":
-      return 'New Vaccinations (millions)';
+      legend_title = 'New Vaccinations (thousands)';
+      legend_unit = 1000
+      return { legend_title, legend_unit }
   }
 }
 
