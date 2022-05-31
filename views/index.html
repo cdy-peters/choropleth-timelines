@@ -5,23 +5,26 @@
     <title>Covid-19 Timeline</title>
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
-    <div id="test_div">
+    <div id="content_div">
         <form id="data_type_form" name="data_type_radio">
-            <h5>Cases</h5>
+            <h4>Cases</h4>
             <input type="radio" name="data_type" value="total_cases" checked>Total Cases<br>
             <input type="radio" name="data_type" value="new_cases">New Cases<br>
-            <h5>Deaths</h5>
+            <h4>Deaths</h4>
             <input type="radio" name="data_type" value="total_deaths">Total Deaths<br>
             <input type="radio" name="data_type" value="new_deaths">New Deaths<br>
-            <h5>Hospital & ICU</h5>
+            <h4>Hospital & ICU</h4>
             <input type="radio" name="data_type" value="icu_patients">ICU Patients<br>
             <input type="radio" name="data_type" value="hosp_patients">Hospital Patients<br>
-            <h5>Tests</h5>
+            <h4>Tests</h4>
             <input type="radio" name="data_type" value="total_tests">Total Tests<br>
             <input type="radio" name="data_type" value="new_tests">New Tests<br>
-            <h5>Vaccinations</h5>
+            <h4>Vaccinations</h4>
             <input type="radio" name="data_type" value="total_vaccinations">Total Vaccinations<br>
             <input type="radio" name="data_type" value="people_vaccinated">People Vaccinated<br>
             <input type="radio" name="data_type" value="people_fully_vaccinated">People Fully Vaccinated<br>
@@ -69,4 +72,7 @@
     <!-- JS Code -->
     <script src="js/choropleth.js"></script>
 </body>
+<div id="loading_bg">
+
+</div>
 </html>

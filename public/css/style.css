@@ -1,6 +1,9 @@
+* {
+    font-family: sans-serif, Helvetica, Arial;
+}
+
 body {
     background-color: #F2F3F6;
-    font-family: sans-serif, Helvetica, Arial;
     margin: 0;
     height: 100vh;
 }
@@ -12,11 +15,12 @@ h1 {
 }
 
 #main {
-    margin: 0 20px;
+    margin: 0 50px;
     padding: 10px;
     background-color: #FFFFFF;
     border: 1px solid black;
     box-shadow: 1px 1px 15px #000000;
+    border-radius: 7px;
 }
 
 #main p {
@@ -36,7 +40,7 @@ div.tooltip {
 }
 
 
-#test_div {
+#content_div {
     width: 100%;
     height: 100%;
     display: flex;
@@ -62,9 +66,14 @@ div.tooltip {
 #data_type_selection {
     margin-right: 10px;
     display: none;
+    font-size: 16px;
 }
 
-@media screen and (max-width: 1275px) {
+#date_picker {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 1350px) {
     #data_type_form {
         display: none;
     }
@@ -76,4 +85,15 @@ div.tooltip {
     #test_div {
         display: block;
     }
+}
+
+#loading_bg {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+    /* background-color: #F2F3F6; */
+    background: url(../images/Rolling-1s-50px.gif) center no-repeat #F2F3F6;
 }

@@ -139,8 +139,6 @@ var promises = [
 Promise.all(promises).then(ready);
 
 function ready([world]) {
-
-
   // Draw the map
   g
     .attr("class", "countries")
@@ -178,6 +176,8 @@ function ready([world]) {
 
   fill_countries(date, "total_cases");
   legend('total_cases');
+
+  $('#loading_bg').fadeOut('slow');
 }
 
 // Color countries
