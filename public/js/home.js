@@ -1,5 +1,5 @@
 var date;
-var prev_radio = "total_cases";
+var prev_type = "total_cases";
 var radios = $("#data_type_form input[type=radio]");
 
 // On slider change
@@ -10,7 +10,7 @@ function slider_change(e) {
   $("#date_picker").val(date);
   $("#date_value").text(date);
 
-  fill_countries(date, prev_radio);
+  fill_countries(date, prev_type);
 }
 
 // On date picker change
@@ -21,32 +21,39 @@ function picker_change(e) {
   $("#date_slider").val(idx);
   $("#date_value").text(date);
 
-  fill_countries(date, prev_radio);
+  fill_countries(date, prev_type);
 }
 
 // On radio change
 for (var i = 0; i < radios.length; i++) {
   radios[i].onclick = function () {
-    if (this.value !== prev_radio) {
-      prev_radio = this.value;
+    if (this.value !== prev_type) {
+      prev_type = this.value;
 
-      $("#data_type_selection").val(this.value);
+      $("#data_type_selection").val(prev_type);
 
-      fill_countries(date, prev_radio);
-      legend(prev_radio);
+      chart_details(prev_type);
+      fill_countries(date, prev_type);
+      legend(prev_type);
     }
   };
 }
 
+// On select change
 function select_change(e) {
-  prev_radio = e.value;
+  prev_type = e.value;
 
   for (var i = 0; i < radios.length; i++) {
-    if (radios[i].value === prev_radio) {
+    if (radios[i].value === prev_type) {
       radios[i].checked = true;
     }
   }
 
-  fill_countries(date, prev_radio);
-  legend(prev_radio);
+  chart_details(prev_type);
+  fill_countries(date, prev_type);
+  legend(prev_type);
+}
+
+function chart_details(prev_type) {
+  $("#chart_title").text(set_subtitle(prev_type));
 }

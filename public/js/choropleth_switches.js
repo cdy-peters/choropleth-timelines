@@ -28,6 +28,36 @@ function set_suffix(data_type) {
   }
 }
 
+// Set subtitle
+function set_subtitle(data_type) {
+  switch (data_type) {
+    case "total_cases":
+      return "Total Covid-19 Cases per Million People";
+    case "new_cases":
+      return "New Covid-19 Cases per Thousand People";
+    case "total_deaths":
+      return "Total Covid-19 Deaths per Thousand People";
+    case "new_deaths":
+      return "New Covid-19 Deaths per Hundred People";
+    case "icu_patients":
+      return "ICU Covid-19 Patients per Hundred People";
+    case "hosp_patients":
+      return "Hospitalized Covid-19 Patients per Thousand People";
+    case "total_tests":
+      return "Total Covid-19 Tests per Million People";
+    case "new_tests":
+      return "New Covid-19 Tests per Thousand People";
+    case "total_vaccinations":
+      return "Total Covid-19 Vaccinations per Million People";
+    case "people_vaccinated":
+      return "People Vaccinated against Covid-19 per Million People";
+    case "people_fully_vaccinated":
+      return "People Fully Vaccinated against Covid-19 per Million People";
+    case "new_vaccinations":
+      return "New Covid-19 Vaccinations per Thousand People";
+  }
+}
+
 // Set color scale
 function set_color_scale(data_type) {
   switch (data_type) {
