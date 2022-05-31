@@ -7,12 +7,14 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <div id="slider">
-        <input id="date_slider" type="range" min="0" style="width: 600px;" oninput="slider_change(this)">
-    </div>
+    <div style="display: flex; justify-content: center;">
+        <div id="date" style="float: left;">
+            <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
+        </div>
 
-    <div id="date">
-        <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
+        <div id="slider">
+            <input id="date_slider" type="range" min="0" style="width: 600px;" oninput="slider_change(this)">
+        </div>
     </div>
 
     <form name="data_type_radio">

@@ -16,73 +16,68 @@ const projection = d3
 // Data and color scale
 let data = new Map();
 
-
-
-const tc_ColorScale = d3
+const tc_color_scale = d3
   .scaleThreshold()
   .domain([10000, 100000, 1000000, 5000000, 10000000, 50000000, 100000000])
   .range(d3.schemeBlues[7]);
 
-const nc_ColorScale = d3
+const nc_color_scale = d3
   .scaleThreshold()
   .domain([1000, 10000, 100000, 500000, 1000000, 2000000])
   .range(d3.schemeBlues[7]);
 
-
-const td_ColorScale = d3
+const td_color_scale = d3
   .scaleThreshold()
   .domain([1000, 10000, 100000, 500000, 1000000, 2000000])
   .range(d3.schemeReds[7]);
 
-const nd_ColorScale = d3
+const nd_color_scale = d3
   .scaleThreshold()
   .domain([25, 100, 500, 1000, 5000, 10000])
   .range(d3.schemeReds[7]);
 
-
-const ip_ColorScale = d3
+const ip_color_scale = d3
   .scaleThreshold()
   .domain([100, 500, 1000, 5000, 10000, 50000])
   .range(d3.schemeOranges[7]);
 
-const hp_ColorScale = d3
+const hp_color_scale = d3
   .scaleThreshold()
   .domain([500, 1000, 5000, 10000, 100000, 200000])
   .range(d3.schemeOranges[7]);
 
-
-const tt_ColorScale = d3
+const tt_color_scale = d3
   .scaleThreshold()
   .domain([5000000, 10000000, 100000000, 500000000, 1000000000, 10000000000])
   .range(d3.schemePurples[7]);
 
-const nt_ColorScale = d3
+const nt_color_scale = d3
   .scaleThreshold()
   .domain([1000, 10000, 100000, 500000, 1000000, 5000000])
   .range(d3.schemePurples[7]);
 
-
-const tv_ColorScale = d3
+const tv_color_scale = d3
   .scaleThreshold()
   .domain([10000, 100000, 1000000, 10000000, 30000000, 100000000, 500000000])
   .range(d3.schemeGreens[7]);
 
-const pv_ColorScale = d3
+const pv_color_scale = d3
   .scaleThreshold()
   .domain([10000, 100000, 1000000, 10000000, 100000000, 250000000, 1000000000])
   .range(d3.schemeGreens[7]);
 
-const pfv_ColorScale = d3
+const pfv_color_scale = d3
   .scaleThreshold()
-  .domain([10000, 100000, 1000000, 10000000, 100000000, 500000000, 1000000000, 5000000000])
+  .domain([
+    10000, 100000, 1000000, 10000000, 100000000, 500000000, 1000000000,
+    5000000000,
+  ])
   .range(d3.schemeGreens[7]);
 
-const nv_ColorScale = d3
+const nv_color_scale = d3
   .scaleThreshold()
   .domain([1000, 10000, 100000, 1000000, 10000000, 50000000])
   .range(d3.schemeGreens[7]);
-
-
 
 // Tooltip
 const tooltip = d3
@@ -108,18 +103,21 @@ var promises = [
     }
 
     covid_data_raw[d.date][d.iso_code] = {
-      total_cases: (d.total_cases === '' ? null : +d.total_cases),
-      new_cases: (d.new_cases === '' ? null : +d.new_cases),
-      total_deaths: (d.total_deaths === '' ? null : +d.total_deaths),
-      new_deaths: (d.new_deaths === '' ? null : +d.new_deaths),
-      icu_patients: (d.icu_patients === '' ? null : +d.icu_patients),
-      hosp_patients: (d.hosp_patients === '' ? null : +d.hosp_patients),
-      total_tests: (d.total_tests === '' ? null : +d.total_tests),
-      new_tests: (d.new_tests === '' ? null : +d.new_tests),
-      total_vaccinations: (d.total_vaccinations === '' ? null : +d.total_vaccinations),
-      people_vaccinated: (d.people_vaccinated === '' ? null : +d.people_vaccinated),
-      people_fully_vaccinated: (d.people_fully_vaccinated === '' ? null : +d.people_fully_vaccinated),
-      new_vaccinations: (d.new_vaccinations === '' ? null : +d.new_vaccinations),
+      total_cases: d.total_cases === "" ? null : +d.total_cases,
+      new_cases: d.new_cases === "" ? null : +d.new_cases,
+      total_deaths: d.total_deaths === "" ? null : +d.total_deaths,
+      new_deaths: d.new_deaths === "" ? null : +d.new_deaths,
+      icu_patients: d.icu_patients === "" ? null : +d.icu_patients,
+      hosp_patients: d.hosp_patients === "" ? null : +d.hosp_patients,
+      total_tests: d.total_tests === "" ? null : +d.total_tests,
+      new_tests: d.new_tests === "" ? null : +d.new_tests,
+      total_vaccinations:
+        d.total_vaccinations === "" ? null : +d.total_vaccinations,
+      people_vaccinated:
+        d.people_vaccinated === "" ? null : +d.people_vaccinated,
+      people_fully_vaccinated:
+        d.people_fully_vaccinated === "" ? null : +d.people_fully_vaccinated,
+      new_vaccinations: d.new_vaccinations === "" ? null : +d.new_vaccinations,
     };
   }),
 ];
@@ -164,8 +162,10 @@ function ready([world]) {
   document.getElementById("date_picker").setAttribute("value", date);
 
   fill_countries(date, "total_cases");
+  legend('total_cases');
 }
 
+// Color countries
 function fill_countries(date, data_type) {
   d3.selectAll(".countries path")
     // Color countries
@@ -173,7 +173,8 @@ function fill_countries(date, data_type) {
       covid_data_country = covid_data[date][d.id];
 
       if (covid_data_country && covid_data_country[data_type] !== null) {
-        return color_scale(covid_data_country, data_type);
+        const color_scale = set_color_scale(data_type);
+        return color_scale(covid_data_country[data_type]);
       } else {
         return "grey";
       }
@@ -189,8 +190,12 @@ function fill_countries(date, data_type) {
       d3.select(this).style("opacity", 1).style("stroke", "black");
 
       if (covid_data_country && covid_data_country[data_type] !== null) {
-        
-        tooltip.html(d.properties.name + ": " + covid_data_country[data_type] + set_suffix(data_type));
+        tooltip.html(
+          d.properties.name +
+            ": " +
+            covid_data_country[data_type] +
+            set_suffix(data_type)
+        );
       } else {
         tooltip.html(d.properties.name + ": No data");
       }
@@ -211,65 +216,154 @@ function fill_countries(date, data_type) {
     });
 }
 
+// Legend
+function legend(data_type) {
+  svg.selectAll("g#legend").remove()
+
+  const x = d3.scaleLinear().domain([2.6, 75.1]).rangeRound([600, 860]);
+
+  const legend = svg.append("g").attr("id", "legend");
+  const color_scale = set_color_scale(data_type)
+  const legend_title = set_legend_title(data_type)
+
+  const legend_entry = legend
+    .selectAll("g.legend")
+    .data(
+      color_scale.range().map(function (d) {
+        d = color_scale.invertExtent(d);
+        if (d[0] == null) d[0] = x.domain()[0];
+        if (d[1] == null) d[1] = x.domain()[1];
+        return d;
+      })
+    )
+    .enter()
+    .append("g")
+    .attr("class", "legend_entry");
+
+  const ls_w = 20,
+    ls_h = 20;
+
+  legend_entry
+    .append("rect")
+    .attr("x", 20)
+    .attr("y", function (d, i) {
+      return height - i * ls_h - 2 * ls_h;
+    })
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function (d) {
+      return color_scale(d[0]);
+    })
+    .style("opacity", 0.8);
+
+  legend_entry
+    .append("text")
+    .attr("x", 50)
+    .attr("y", function (d, i) {
+      return height - i * ls_h - ls_h - 6;
+    })
+    .text(function (d, i) {
+      if (i === 0) return "< " + d[1] / 1000000 + " m";
+      if (d[1] < d[0]) return d[0] / 1000000 + " m +";
+      return d[0] / 1000000 + " m - " + d[1] / 1000000 + " m";
+    });
+
+  legend
+    .append("text")
+    .attr("x", 15)
+    .attr("y", 625)
+    .text(legend_title);
+}
+
 // Set suffix
 function set_suffix(data_type) {
-  switch(data_type) {
+  switch (data_type) {
     case "total_cases":
-      return " Total Cases"
+      return " Total Cases";
     case "new_cases":
-      return " New Cases"
+      return " New Cases";
     case "total_deaths":
-      return " Total Deaths"
+      return " Total Deaths";
     case "new_deaths":
-      return " New Deaths"
+      return " New Deaths";
     case "icu_patients":
-      return " ICU Patients"
+      return " ICU Patients";
     case "hosp_patients":
-      return " Hospitalized Patients"
+      return " Hospitalized Patients";
     case "total_tests":
-      return " Total Tests"
+      return " Total Tests";
     case "new_tests":
-      return " New Tests"
+      return " New Tests";
     case "total_vaccinations":
-      return " Total Vaccinations"
+      return " Total Vaccinations";
     case "people_vaccinated":
-      return " People Vaccinated"
+      return " People Vaccinated";
     case "people_fully_vaccinated":
-      return " People Fully Vaccinated"
+      return " People Fully Vaccinated";
     case "new_vaccinations":
-      return " New Vaccinations"
+      return " New Vaccinations";
   }
 }
 
 // Set color scale
-function color_scale(covid_data_country, data_type) {
+function set_color_scale(data_type) {
   switch (data_type) {
     case "total_cases":
-      return tc_ColorScale(covid_data_country[data_type]);
+      return tc_color_scale;
     case "new_cases":
-      return nc_ColorScale(covid_data_country[data_type]);
+      return nc_color_scale;
     case "total_deaths":
-      return td_ColorScale(covid_data_country[data_type]);
+      return td_color_scale;
     case "new_deaths":
-      return nd_ColorScale(covid_data_country[data_type]);
+      return nd_color_scale;
     case "icu_patients":
-      return ip_ColorScale(covid_data_country[data_type]);
+      return ip_color_scale;
     case "hosp_patients":
-      return hp_ColorScale(covid_data_country[data_type]);
+      return hp_color_scale;
     case "total_tests":
-      return tt_ColorScale(covid_data_country[data_type]);
+      return tt_color_scale;
     case "new_tests":
-      return nt_ColorScale(covid_data_country[data_type]);
+      return nt_color_scale;
     case "total_vaccinations":
-      return tv_ColorScale(covid_data_country[data_type]);
+      return tv_color_scale;
     case "people_vaccinated":
-      return pv_ColorScale(covid_data_country[data_type]);
+      return pv_color_scale;
     case "people_fully_vaccinated":
-      return pfv_ColorScale(covid_data_country[data_type]);
+      return pfv_color_scale;
     case "new_vaccinations":
-      return nv_ColorScale(covid_data_country[data_type]);
+      return nv_color_scale;
     default:
       return "grey";
+  }
+}
+
+// Set legend title
+function set_legend_title(data_type) {
+  switch (data_type) {
+    case "total_cases":
+      return 'Total Cases (millions)';
+    case "new_cases":
+      return 'New Cases (millions)';
+    case "total_deaths":
+      return 'Total Deaths (millions)';
+    case "new_deaths":
+      return 'New Deaths (millions)';
+    case "icu_patients":
+      return 'ICU Patients (millions)';
+    case "hosp_patients":
+      return 'Hospitalized Patients (millions)';
+    case "total_tests":
+      return 'Total Tests (millions)';
+    case "new_tests":
+      return 'New Tests (millions)';
+    case "total_vaccinations":
+      return 'Total Vaccinations (millions)';
+    case "people_vaccinated":
+      return 'People Vaccinated (millions)';
+    case "people_fully_vaccinated":
+      return 'People Fully Vaccinated (millions)';
+    case "new_vaccinations":
+      return 'New Vaccinations (millions)';
   }
 }
 
@@ -301,6 +395,7 @@ for (var i = 0; i < radios.length; i++) {
       prev_radio = this.value;
 
       fill_countries(date, this.value);
+      legend(prev_radio);
     }
   };
 }
