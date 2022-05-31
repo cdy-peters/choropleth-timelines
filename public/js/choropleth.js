@@ -1,6 +1,7 @@
 var date;
 var prev_radio = "total_cases";
-var radios = document.data_type_radio.data_type;
+// var radios = document.data_type_radio.data_type;
+var radios = $('#data_type_form input[type=radio]');
 
 const svg = d3.select("svg"),
   g = svg.append('g')
@@ -167,12 +168,12 @@ function ready([world]) {
   var idx = Object.keys(covid_data).length - 1;
   date = Object.keys(covid_data)[idx];
   // Set slider and date picker to last date
-  document.getElementById("date_slider").setAttribute("max", idx);
-  document.getElementById("date_slider").setAttribute("value", idx);
-  document.getElementById("date_value").innerHTML = date;
+  $("#date_slider").attr("max", idx);
+  $("#date_slider").val(idx);
+  $("#date_value").text(date);
 
-  document.getElementById("date_picker").setAttribute("max", date);
-  document.getElementById("date_picker").setAttribute("value", date);
+  $('#date_picker').attr('max', date);
+  $('#date_picker').val(date);
 
   fill_countries(date, "total_cases");
   legend('total_cases');
@@ -410,8 +411,10 @@ function set_legend_details(data_type) {
 function slider_change(e) {
   date = Object.keys(covid_data)[e.value];
 
-  document.getElementById("date_picker").setAttribute("value", date);
-  document.getElementById("date_value").innerHTML = date;
+  $('#date_slider').attr('value', e.value);
+  $('#date_picker').val(date);
+  $('#date_value').text(date);
+
 
   fill_countries(date, prev_radio);
 }
@@ -421,8 +424,8 @@ function picker_change(e) {
   date = e.value;
   idx = Object.keys(covid_data).indexOf(date);
 
-  document.getElementById("date_slider").setAttribute("value", idx);
-  document.getElementById("date_value").innerHTML = date;
+  $('#date_slider').val(idx)
+  $('#date_value').text(date);
 
   fill_countries(date, prev_radio);
 }
@@ -433,7 +436,7 @@ for (var i = 0; i < radios.length; i++) {
     if (this.value !== prev_radio) {
       prev_radio = this.value;
 
-      document.getElementById('data_type_selection').value = this.value;
+      $('#data_type_selection').val(this.value);
 
       fill_countries(date, prev_radio);
       legend(prev_radio);
