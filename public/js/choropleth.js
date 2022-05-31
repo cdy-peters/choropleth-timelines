@@ -18,65 +18,64 @@ let data = new Map();
 
 const tc_color_scale = d3
   .scaleThreshold()
-  .domain([10000, 100000, 1000000, 5000000, 10000000, 50000000, 100000000])
+  .domain([10000, 100000, 1000000, 10000000, 50000000, 100000000])
   .range(d3.schemeBlues[7]);
 
 const nc_color_scale = d3
   .scaleThreshold()
-  .domain([1000, 10000, 100000, 500000, 1000000, 2000000])
+  .domain([100, 1000, 10000, 100000, 500000, 1000000])
   .range(d3.schemeBlues[7]);
 
 const td_color_scale = d3
   .scaleThreshold()
-  .domain([1000, 10000, 100000, 500000, 1000000, 2000000])
+  .domain([1000, 5000, 10000, 100000, 500000, 1000000])
   .range(d3.schemeReds[7]);
 
 const nd_color_scale = d3
   .scaleThreshold()
-  .domain([25, 100, 500, 1000, 5000, 10000])
+  .domain([10, 50, 100, 500, 1000, 2500])
   .range(d3.schemeReds[7]);
 
 const ip_color_scale = d3
   .scaleThreshold()
-  .domain([100, 500, 1000, 5000, 10000, 50000])
+  .domain([10, 100, 500, 1000, 2500, 5000])
   .range(d3.schemeOranges[7]);
 
 const hp_color_scale = d3
   .scaleThreshold()
-  .domain([500, 1000, 5000, 10000, 100000, 200000])
+  .domain([100, 500, 1000, 5000, 10000, 20000])
   .range(d3.schemeOranges[7]);
 
 const tt_color_scale = d3
   .scaleThreshold()
-  .domain([5000000, 10000000, 100000000, 500000000, 1000000000, 10000000000])
+  .domain([1000000, 5000000, 10000000, 100000000, 500000000, 1000000000])
   .range(d3.schemePurples[7]);
 
 const nt_color_scale = d3
   .scaleThreshold()
-  .domain([1000, 10000, 100000, 500000, 1000000, 5000000])
+  .domain([1000, 10000, 50000, 100000, 500000, 1000000])
   .range(d3.schemePurples[7]);
 
 const tv_color_scale = d3
   .scaleThreshold()
-  .domain([10000, 100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .domain([10000, 100000, 1000000, 10000000, 50000000, 100000000, 200000000])
   .range(d3.schemeGreens[7]);
 
 const pv_color_scale = d3
   .scaleThreshold()
-  .domain([10000, 100000, 1000000, 10000000, 100000000, 250000000, 1000000000])
+  .domain([10000, 100000, 1000000, 50000000, 10000000, 50000000, 100000000])
   .range(d3.schemeGreens[7]);
 
 const pfv_color_scale = d3
   .scaleThreshold()
   .domain([
-    10000, 100000, 1000000, 10000000, 100000000, 500000000, 1000000000,
-    5000000000,
+    10000, 100000, 1000000, 10000000, 100000000, 100000000
   ])
   .range(d3.schemeGreens[7]);
 
 const nv_color_scale = d3
   .scaleThreshold()
-  .domain([1000, 10000, 100000, 1000000, 10000000, 50000000])
+  .domain([1000, 10000, 100000, 500000, 1000000, 10000000])
   .range(d3.schemeGreens[7]);
 
 // Tooltip
