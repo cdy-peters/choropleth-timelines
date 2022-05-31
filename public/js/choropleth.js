@@ -3,6 +3,7 @@ var prev_radio = "total_cases";
 var radios = document.data_type_radio.data_type;
 
 const svg = d3.select("svg"),
+  g = svg.append('g')
   width = +svg.attr("width"),
   height = +svg.attr("height");
 
@@ -85,6 +86,20 @@ const tooltip = d3
   .attr("class", "tooltip")
   .style("opacity", 0);
 
+// Zoom
+const zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .translateExtent([[0, 0], [width, height]])
+    .on('zoom', zoomed);
+
+svg.call(zoom)
+
+function zoomed(event) {
+  g
+    .selectAll('path') // To prevent stroke width from scaling
+    .attr('transform', event.transform);
+}
+
 // Load external data and boot
 const COUNTRY_DATASET =
   "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
@@ -124,9 +139,10 @@ var promises = [
 Promise.all(promises).then(ready);
 
 function ready([world]) {
+
+
   // Draw the map
-  svg
-    .append("g")
+  g
     .attr("class", "countries")
     .selectAll("path")
     .data(world.features)
@@ -221,7 +237,7 @@ function legend(data_type) {
 
   const x = d3.scaleLinear().domain([2.6, 75.1]).rangeRound([600, 860]);
 
-  const legend = svg.append("g").attr("id", "legend");
+  const legend = svg.append('g').attr("id", "legend");
   const color_scale = set_color_scale(data_type)
   const { legend_title, legend_unit } = set_legend_details(data_type)
 
