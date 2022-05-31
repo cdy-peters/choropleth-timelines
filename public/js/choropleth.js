@@ -1,12 +1,6 @@
-var date;
-var prev_radio = "total_cases";
-// var radios = document.data_type_radio.data_type;
-var radios = $('#data_type_form input[type=radio]');
-
 const svg = d3.select("svg"),
-  g = svg.append('g')
-  width = +svg.attr("width"),
-  height = +svg.attr("height");
+  g = svg.append("g");
+(width = +svg.attr("width")), (height = +svg.attr("height"));
 
 // Map and projection
 const projection = d3
@@ -70,9 +64,7 @@ const pv_color_scale = d3
 
 const pfv_color_scale = d3
   .scaleThreshold()
-  .domain([
-    10000, 100000, 1000000, 10000000, 100000000, 100000000
-  ])
+  .domain([10000, 100000, 1000000, 10000000, 100000000, 100000000])
   .range(d3.schemeGreens[7]);
 
 const nv_color_scale = d3
@@ -88,18 +80,16 @@ const tooltip = d3
   .style("opacity", 0);
 
 // Zoom
-const zoom = d3.zoom()
-    .scaleExtent([1, 8])
-    .translateExtent([[0, 0], [width, height]])
-    .on('zoom', zoomed);
+const zoom = d3
+  .zoom()
+  .scaleExtent([1, 8])
+  .translateExtent([
+    [0, 0],
+    [width, height],
+  ])
+  .on("zoom", zoomed);
 
-svg.call(zoom)
-
-function zoomed(event) {
-  g
-    .selectAll('path') // To prevent stroke width from scaling
-    .attr('transform', event.transform);
-}
+svg.call(zoom);
 
 // Load external data and boot
 const COUNTRY_DATASET =
@@ -141,8 +131,7 @@ Promise.all(promises).then(ready);
 
 function ready([world]) {
   // Draw the map
-  g
-    .attr("class", "countries")
+  g.attr("class", "countries")
     .selectAll("path")
     .data(world.features)
     .join("path")
@@ -172,287 +161,11 @@ function ready([world]) {
   $("#date_slider").val(idx);
   $("#date_value").text(date);
 
-  $('#date_picker').attr('max', date);
-  $('#date_picker').val(date);
+  $("#date_picker").attr("max", date);
+  $("#date_picker").val(date);
 
   fill_countries(date, "total_cases");
-  legend('total_cases');
+  legend("total_cases");
 
-  $('#loading_bg').fadeOut('slow');
-}
-
-// Color countries
-function fill_countries(date, data_type) {
-  d3.selectAll(".countries path")
-    // Color countries
-    .style("fill", function (d) {
-      covid_data_country = covid_data[date][d.id];
-
-      if (covid_data_country && covid_data_country[data_type] !== null) {
-        const color_scale = set_color_scale(data_type);
-        return color_scale(covid_data_country[data_type]);
-      } else {
-        return "grey";
-      }
-    })
-    .attr("class", "country")
-
-    // Hover
-    .on("mouseover", function (e, d) {
-      covid_data_country = covid_data[date][d.id];
-
-      d3.selectAll(".country").style("opacity", 0.3);
-
-      d3.select(this).style("opacity", 1).style("stroke", "black");
-
-      if (covid_data_country && covid_data_country[data_type] !== null) {
-        tooltip.html(
-          d.properties.name +
-            ": " +
-            covid_data_country[data_type] +
-            set_suffix(data_type)
-        );
-      } else {
-        tooltip.html(d.properties.name + ": No data");
-      }
-
-      tooltip
-        .transition()
-        .duration(200)
-        .style("opacity", 0.9)
-        .style("left", e.pageX + 5 + "px")
-        .style("top", e.pageY - 28 + "px");
-    })
-    .on("mouseout", function (e, d) {
-      d3.selectAll(".country")
-        .style("opacity", 1)
-        .style("stroke", "transparent");
-
-      tooltip.transition().duration(500).style("opacity", 0);
-    });
-}
-
-// Legend
-function legend(data_type) {
-  svg.selectAll("g#legend").remove()
-
-  const x = d3.scaleLinear().domain([2.6, 75.1]).rangeRound([600, 860]);
-
-  const legend = svg.append('g').attr("id", "legend");
-  const color_scale = set_color_scale(data_type)
-  const { legend_title, legend_unit } = set_legend_details(data_type)
-
-  const legend_entry = legend
-    .selectAll("g.legend")
-    .data(
-      color_scale.range().map(function (d) {
-        d = color_scale.invertExtent(d);
-        if (d[0] == null) d[0] = x.domain()[0];
-        if (d[1] == null) d[1] = x.domain()[1];
-        return d;
-      })
-    )
-    .enter()
-    .append("g")
-    .attr("class", "legend_entry");
-
-  const ls_w = 20,
-    ls_h = 20;
-
-  legend_entry
-    .append("rect")
-    .attr("x", 20)
-    .attr("y", function (d, i) {
-      return height - i * ls_h - 2 * ls_h;
-    })
-    .attr("width", ls_w)
-    .attr("height", ls_h)
-    .style("fill", function (d) {
-      return color_scale(d[0]);
-    })
-    .style("opacity", 0.8);
-
-  legend_entry
-    .append("text")
-    .attr("x", 50)
-    .attr("y", function (d, i) {
-      return height - i * ls_h - ls_h - 6;
-    })
-    .text(function (d, i) {
-      if (i === 0) return "< " + d[1] / legend_unit;
-      if (d[1] < d[0]) return d[0] / legend_unit + " +";
-      return d[0] / legend_unit + " - " + d[1] / legend_unit;
-    });
-
-  legend
-    .append("text")
-    .attr("x", 15)
-    .attr("y", 625)
-    .text(legend_title);
-}
-
-// Set suffix
-function set_suffix(data_type) {
-  switch (data_type) {
-    case "total_cases":
-      return " Total Cases";
-    case "new_cases":
-      return " New Cases";
-    case "total_deaths":
-      return " Total Deaths";
-    case "new_deaths":
-      return " New Deaths";
-    case "icu_patients":
-      return " ICU Patients";
-    case "hosp_patients":
-      return " Hospitalized Patients";
-    case "total_tests":
-      return " Total Tests";
-    case "new_tests":
-      return " New Tests";
-    case "total_vaccinations":
-      return " Total Vaccinations";
-    case "people_vaccinated":
-      return " People Vaccinated";
-    case "people_fully_vaccinated":
-      return " People Fully Vaccinated";
-    case "new_vaccinations":
-      return " New Vaccinations";
-  }
-}
-
-// Set color scale
-function set_color_scale(data_type) {
-  switch (data_type) {
-    case "total_cases":
-      return tc_color_scale;
-    case "new_cases":
-      return nc_color_scale;
-    case "total_deaths":
-      return td_color_scale;
-    case "new_deaths":
-      return nd_color_scale;
-    case "icu_patients":
-      return ip_color_scale;
-    case "hosp_patients":
-      return hp_color_scale;
-    case "total_tests":
-      return tt_color_scale;
-    case "new_tests":
-      return nt_color_scale;
-    case "total_vaccinations":
-      return tv_color_scale;
-    case "people_vaccinated":
-      return pv_color_scale;
-    case "people_fully_vaccinated":
-      return pfv_color_scale;
-    case "new_vaccinations":
-      return nv_color_scale;
-    default:
-      return "grey";
-  }
-}
-
-// Set legend details
-function set_legend_details(data_type) {
-  switch (data_type) {
-    case "total_cases":
-      legend_title = 'Total Cases (millions)';
-      legend_unit = 1000000
-      return { legend_title, legend_unit }
-    case "new_cases":
-      legend_title = 'New Cases (thousands)';
-      legend_unit = 1000
-      return { legend_title, legend_unit }
-    case "total_deaths":
-      legend_title = 'Total Deaths (thousands)';
-      legend_unit = 1000
-      return { legend_title, legend_unit }
-    case "new_deaths":
-      legend_title = 'New Deaths (hundreds)';
-      legend_unit = 100
-      return { legend_title, legend_unit }
-    case "icu_patients":
-      legend_title = 'ICU Patients (hundreds)';
-      legend_unit = 100
-      return { legend_title, legend_unit }
-    case "hosp_patients":
-      legend_title = 'Hospitalized Patients (thousands)';
-      legend_unit = 1000
-      return { legend_title, legend_unit }
-    case "total_tests":
-      legend_title = 'Total Tests (millions)';
-      legend_unit = 1000000
-      return { legend_title, legend_unit }
-    case "new_tests":
-      legend_title = 'New Tests (thousands)';
-      legend_unit = 1000
-      return { legend_title, legend_unit }
-    case "total_vaccinations":
-      legend_title = 'Total Vaccinations (millions)';
-      legend_unit = 1000000
-      return { legend_title, legend_unit }
-    case "people_vaccinated":
-      legend_title = 'People Vaccinated (millions)';
-      legend_unit = 1000000
-      return { legend_title, legend_unit }
-    case "people_fully_vaccinated":
-      legend_title = 'People Fully Vaccinated (millions)';
-      legend_unit = 1000000
-      return { legend_title, legend_unit }
-    case "new_vaccinations":
-      legend_title = 'New Vaccinations (thousands)';
-      legend_unit = 1000
-      return { legend_title, legend_unit }
-  }
-}
-
-// On slider change
-function slider_change(e) {
-  date = Object.keys(covid_data)[e.value];
-
-  $('#date_slider').attr('value', e.value);
-  $('#date_picker').val(date);
-  $('#date_value').text(date);
-
-
-  fill_countries(date, prev_radio);
-}
-
-// On date picker change
-function picker_change(e) {
-  date = e.value;
-  idx = Object.keys(covid_data).indexOf(date);
-
-  $('#date_slider').val(idx)
-  $('#date_value').text(date);
-
-  fill_countries(date, prev_radio);
-}
-
-// On radio change
-for (var i = 0; i < radios.length; i++) {
-  radios[i].onclick = function () {
-    if (this.value !== prev_radio) {
-      prev_radio = this.value;
-
-      $('#data_type_selection').val(this.value);
-
-      fill_countries(date, prev_radio);
-      legend(prev_radio);
-    }
-  };
-}
-
-function select_change(e) {
-  prev_radio = e.value;
-
-  for (var i = 0; i < radios.length; i++) {
-    if (radios[i].value === prev_radio) {
-      radios[i].checked = true;
-    }
-  }
-
-  fill_countries(date, prev_radio);
-  legend(prev_radio);
+  $("#loading_bg").fadeOut("slow");
 }
