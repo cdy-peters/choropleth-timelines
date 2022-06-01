@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <h1 id="title">Covid-19 Timeline</h1>
     <div id="content_div">
         <form id="data_type_form" name="data_type_radio">
             <h4>Cases</h4>
@@ -76,7 +77,6 @@
             </div>
         </div>
     </div>
-
     <!-- Scripts -->
     <script src="js/home.js"></script>
     <script src="js/choropleth_switches.js"></script>
@@ -101,6 +101,29 @@
                 <i class="bi bi-person-fill"></i>
             </a>
             <br style="clear: both;">
+        </div>
+    </div>
+    <div id="sources">
+        <div id="authors">
+            <h3>Authors</h3>
+            <p>This data has been collected, aggregated, and documented by Cameron Appel, Diana Beltekian, Daniel
+                Gavrilov, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Edouard Mathieu, Esteban Ortiz-Ospina, Hannah
+                Ritchie, Lucas Rodés-Guirao, Max Roser.
+            </p>
+        </div>
+        <div id="references">
+            <h3>References</h3>
+            <div id="reference">
+                <h5>Vaccinations dataset</h5>
+                <p>Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations. Nat Hum Behav (2021).</p>
+                <a href="https://doi.org/10.1038/s41562-021-01122-8">https://doi.org/10.1038/s41562-021-01122-8</a>
+            </div>
+            <br>
+            <div id="reference">
+                <h5>Testing dataset</h5>
+                <p>Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020).</p>
+                <a href="https://doi.org/10.1038/s41597-020-00688-8">https://doi.org/10.1038/s41597-020-00688-8</a>
+            </div>
         </div>
     </div>
 </footer>
