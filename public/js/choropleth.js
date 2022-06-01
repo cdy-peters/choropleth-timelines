@@ -1,6 +1,6 @@
 const svg = d3.select("svg"),
   g = svg.append("g");
-(width = +svg.attr("width")), (height = +svg.attr("height"));
+(width = 1000), (height = 800);
 
 // Map and projection
 const projection = d3

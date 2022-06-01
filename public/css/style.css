@@ -15,7 +15,7 @@ h1 {
 }
 
 #main {
-  margin: 0 50px;
+  margin: 0 20px;
   padding: 10px;
   background-color: #ffffff;
   border: 1px solid black;
@@ -102,11 +102,12 @@ div.tooltip {
 }
 
 #chart_div {
-  width: fit-content;
+  max-width: 1000px;
+  width: inherit;
 }
 
 #date_selection {
-  margin: 10px 0;
+  margin: 10px 20px;
   display: flex;
   justify-content: center;
 }
