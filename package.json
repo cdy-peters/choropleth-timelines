@@ -1,7 +1,7 @@
 {
   "name": "covid-timeline",
   "version": "1.0.0",
-  "description": "",
+  "description": "Covid-19 Timeline is a web app that provides daily historic data on the spread of the virus around the world starting from January 1st, 2020.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/cdy-peters/covid19-timeline.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cody Peters",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cdy-peters/covid19-timeline/issues"
