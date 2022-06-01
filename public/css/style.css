@@ -47,8 +47,7 @@ h1 {
 }
 
 #date_text {
-  margin-left: 15px;
-  position: absolute;
+  margin: 0;
 }
 
 #authors {

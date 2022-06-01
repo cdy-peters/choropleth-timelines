@@ -4,6 +4,20 @@ function zoomed(event) {
     .attr("transform", event.transform);
 }
 
+// Add chart details
+function add_chart_details() {
+  // Add date text
+  svg
+    .append("foreignObject")
+    .attr("x", "20")
+    .attr("y", "50")
+    .attr("width", "150px")
+    .attr("height", "40px")
+    .html(
+      '<p id="date_text"><strong>Date:</strong> <span id="date_value"></span></p>'
+    );
+}
+
 // Color countries
 function fill_countries(date, data_type) {
   d3.selectAll(".countries path")
