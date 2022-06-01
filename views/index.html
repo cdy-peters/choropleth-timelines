@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 Timeline</title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -64,7 +65,7 @@
                 <h1 id="chart_title">Total Covid-19 Cases per Million People</h1>
                 <p id="author_title">This web app is accessible via <a href="https://codypeters.dev">codypeters.dev</a>
                 </p>
-                <p id="author_title">Data provided by <i>Our World in Data</i></p>
+                <p id="author_title">Data provided by <a href="https://covid.ourworldindata.org/"><i>Our World in Data</i></a></p>
                 <p id="date_text"><strong>Date:</strong> <span id="date_value"></span></p>
                 <svg id="choropleth" width="1000" height="800"></svg>
             </div>
@@ -77,6 +78,28 @@
     <script src="js/choropleth_funcs.js"></script>
     <script src="js/choropleth.js"></script>
 </body>
+
+<footer>
+    <div id="footer_inner">
+        <a id="owid_link" href="https://ourworldindata.org/"><img src="images/owid_logo.png"></a>
+
+        <p>Unpublished work &copy; 2022 Cody Peters</p>
+
+        <div id="social_container">
+            <a class="social_background" href="https://github.com/cdy-peters/Spotify-Song-Recommendations">
+                <i class="bi bi-github"></i>
+            </a>
+            <a class="social_background" href="https://linkedin.com/">
+                <i class="bi bi-linkedin"></i>
+            </a>
+            <a class="social_background" href="https://codypeters.dev">
+                <i class="bi bi-person-fill"></i>
+            </a>
+            <br style="clear: both;">
+        </div>
+    </div>
+</footer>
+
 <div id="loading_bg">
 
 </div>
