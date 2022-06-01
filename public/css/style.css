@@ -121,6 +121,7 @@ div.tooltip {
   font-size: 16px;
 }
 
+/* Change data type selection location */
 @media screen and (max-width: 1350px) {
   #data_type_form {
     display: none;
@@ -135,6 +136,17 @@ div.tooltip {
   }
 }
 
+/* Change chart title font sizes */
+@media screen and (max-width: 1000px) {
+  #chart_title {
+    font-size: 2vw;
+  }
+
+  #author_title {
+    font-size: 1.4vw;
+  }
+}
+
 #loading_bg {
   position: fixed;
   left: 0px;
@@ -144,7 +156,6 @@ div.tooltip {
   z-index: 9999;
   background: url(../images/Rolling-1s-50px.gif) center no-repeat #f2f3f6;
 }
-
 
 #footer {
   display: table-row;

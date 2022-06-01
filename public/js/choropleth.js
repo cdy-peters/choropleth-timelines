@@ -145,8 +145,8 @@ function ready([world]) {
       return d.id;
     });
 
-    // Add chart details
-    add_chart_details();
+  // Add chart details
+  add_chart_details();
 
   // Sort covid data object by date
   covid_data = Object.keys(covid_data_raw)
