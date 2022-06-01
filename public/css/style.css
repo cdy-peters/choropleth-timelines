@@ -111,40 +111,24 @@ div.tooltip {
   justify-content: center;
 }
 
+#data_type_outer {
+  margin: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#data_type_inner {
+  width: 724px;
+}
+
 #data_type_selection {
-  margin-right: 10px;
   display: none;
   font-size: 16px;
 }
 
 #date_picker {
+  min-width: 110px;
   font-size: 16px;
-}
-
-/* Change data type selection location */
-@media screen and (max-width: 1350px) {
-  #data_type_form {
-    display: none;
-  }
-
-  #data_type_selection {
-    display: block;
-  }
-
-  #test_div {
-    display: block;
-  }
-}
-
-/* Change chart title font sizes */
-@media screen and (max-width: 1000px) {
-  #chart_title {
-    font-size: 2vw;
-  }
-
-  #author_title {
-    font-size: 1.4vw;
-  }
 }
 
 #loading_bg {
@@ -157,6 +141,7 @@ div.tooltip {
   background: url(../images/Rolling-1s-50px.gif) center no-repeat #f2f3f6;
 }
 
+/* Footer */
 #footer {
   display: table-row;
   height: 0;
@@ -210,6 +195,32 @@ footer p {
   background-color: rgb(79, 79, 79);
   cursor: pointer;
   box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 1);
+}
+
+/* Change data type selection location */
+@media screen and (max-width: 1350px) {
+  #data_type_form {
+    display: none;
+  }
+
+  #data_type_selection {
+    display: block;
+  }
+
+  #chart_div {
+    max-width: 960px;
+  }
+}
+
+/* Change chart title font sizes */
+@media screen and (max-width: 1000px) {
+  #chart_title {
+    font-size: 2vw;
+  }
+
+  #author_title {
+    font-size: 1.4vw;
+  }
 }
 
 /* Footer Media Queries */

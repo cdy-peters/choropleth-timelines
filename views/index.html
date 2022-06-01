@@ -36,26 +36,30 @@
 
 
         <div id="chart_div">
+            <div id="data_type_outer">
+                <div id="data_type_inner">
+                    <select id="data_type_selection" onchange="select_change(this)">
+                        <optgroup label="Cases"></optgroup>
+                        <option value="total_cases">Total Cases</option>
+                        <option value="new_cases">New Cases</option>
+                        <optgroup label="Deaths"></optgroup>
+                        <option value="total_deaths">Total Deaths</option>
+                        <option value="new_deaths">New Deaths</option>
+                        <optgroup label="Hospital & ICU"></optgroup>
+                        <option value="icu_patients">ICU Patients</option>
+                        <option value="hosp_patients">Hospital Patients</option>
+                        <optgroup label="Tests"></optgroup>
+                        <option value="total_tests">Total Tests</option>
+                        <option value="new_tests">New Tests</option><br>
+                        <optgroup label="Vaccinations"></optgroup>
+                        <option value="total_vaccinations">Total Vaccinations</option>
+                        <option value="people_vaccinated">People Vaccinated</option>
+                        <option value="people_fully_vaccinated">People Fully Vaccinated</option>
+                        <option value="new_vaccinations">New Vaccinations</option>
+                    </select>
+                </div>
+            </div>
             <div id="date_selection">
-                <select id="data_type_selection" onchange="select_change(this)">
-                    <optgroup label="Cases"></optgroup>
-                    <option value="total_cases">Total Cases</option>
-                    <option value="new_cases">New Cases</option>
-                    <optgroup label="Deaths"></optgroup>
-                    <option value="total_deaths">Total Deaths</option>
-                    <option value="new_deaths">New Deaths</option>
-                    <optgroup label="Hospital & ICU"></optgroup>
-                    <option value="icu_patients">ICU Patients</option>
-                    <option value="hosp_patients">Hospital Patients</option>
-                    <optgroup label="Tests"></optgroup>
-                    <option value="total_tests">Total Tests</option>
-                    <option value="new_tests">New Tests</option><br>
-                    <optgroup label="Vaccinations"></optgroup>
-                    <option value="total_vaccinations">Total Vaccinations</option>
-                    <option value="people_vaccinated">People Vaccinated</option>
-                    <option value="people_fully_vaccinated">People Fully Vaccinated</option>
-                    <option value="new_vaccinations">New Vaccinations</option>
-                </select>
 
                 <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
                 <input type="range" id="date_slider" min="0" style="width: 600px;" oninput="slider_change(this)">
