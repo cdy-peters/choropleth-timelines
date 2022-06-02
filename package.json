@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Covid-19 Timeline is a web app that provides daily historic data on the spread of the virus around the world starting from January 1st, 2020.",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
