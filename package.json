@@ -1,27 +1,26 @@
 {
-  "name": "covid-timeline",
+  "name": "choropleth-timelines",
   "version": "1.0.0",
-  "description": "Covid-19 Timeline is a web app that provides daily historic data on the spread of the virus around the world starting from January 1st, 2020.",
+  "description": "Choropleth Timelines is a web app that provides a historical timeline of data visualized on a choropleth map for various datasets.",
   "main": "index.js",
   "engines": {
     "node": "16.x"
   },
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cdy-peters/covid19-timeline.git"
+    "url": "git+https://github.com/cdy-peters/choropleth-timelines.git"
   },
-  "keywords": [],
+  "keywords": ["Javascript", "D3", "Choropleth", "Timeline"],
   "author": "Cody Peters",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cdy-peters/covid19-timeline/issues"
+    "url": "https://github.com/cdy-peters/choropleth-timelines/issues"
   },
-  "homepage": "https://github.com/cdy-peters/covid19-timeline#readme",
+  "homepage": "https://github.com/cdy-peters/choropleth-timelines#readme",
   "dependencies": {
     "express": "^4.18.1"
   }
