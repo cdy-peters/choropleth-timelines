@@ -2,6 +2,13 @@
   font-family: sans-serif, Helvetica, Arial;
 }
 
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 body {
   background-color: #f2f3f6;
   margin: 0;
@@ -16,6 +23,70 @@ h1 {
 
 #title {
   margin: 20px;
+}
+
+.home-btn {
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid rgb(160, 160, 160);
+  background-color: #d2d2d2;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  width: 100px;
+  text-align: center;
+}
+
+.home-btn:hover {
+  background-color: #afafaf;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d2d2d2;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+nav h4 {
+  margin: 0;
+  position: absolute;
+  left: 0;
+  padding: 0 10px;
+  text-align: center;
+}
+
+nav h4 a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #d2d2d2;
+}
+
+.nav-btns a {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  width: 100px;
+  text-align: center;
+  padding: 10px;
+}
+
+.nav-btns a:hover {
+  background-color: #afafaf;
+}
+
+.nav-active {
+  background-color: #afafaf;
 }
 
 #main {
@@ -97,6 +168,7 @@ h1 {
 }
 
 div.tooltip {
+  display: none;
   position: absolute;
   padding: 7px;
   font-size: 0.8em;
@@ -109,15 +181,17 @@ div.tooltip {
 
 #content_div {
   width: 100%;
-  /* height: 100%; */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 #data_type_form {
   min-width: 200px;
   width: fit-content;
+  margin-bottom: auto;
+  margin-top: 24px;
 }
 
 #chart_div {
@@ -163,7 +237,8 @@ div.tooltip {
 
 /* Footer */
 footer {
-  margin-top: 20px;
+  margin-top: auto;
+  padding-top: 20px;
 }
 
 #footer {
@@ -178,10 +253,6 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-#footer_inner p {
-  margin-bottom: 10px;
 }
 
 footer p {
@@ -251,8 +322,16 @@ footer p {
   }
 }
 
-/* Footer Media Queries */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
+  nav {
+    display: block;
+  }
+
+  nav h4 {
+    position: static;
+    padding: 10px;
+  }
+
   #footer_inner {
     display: block;
   }

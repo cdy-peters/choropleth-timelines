@@ -56,6 +56,7 @@ function fill_countries(date, data_type) {
       tooltip
         .transition()
         .duration(200)
+        .style("display", "block")
         .style("opacity", 0.9)
         .style("left", e.pageX + 5 + "px")
         .style("top", e.pageY - 28 + "px");

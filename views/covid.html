@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid-19 Timeline</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js"></script>
+</head>
+
+<div class="flex-wrapper">
+
+    <nav>
+        <h4><a href="/">Choropleth Timelines</a></h4>
+        <div class="nav-btns">
+            <a href="/covid" class="nav-active">Covid</a>
+            <a href="/monkeypox">Monkeypox</a>
+        </div>
+    </nav>
+
+    <body>
+        <div id="content_div">
+            <form id="data_type_form" name="data_type_radio">
+                <h4>Cases</h4>
+                <input type="radio" name="data_type" value="total_cases" checked>Total Cases<br>
+                <input type="radio" name="data_type" value="new_cases">New Cases<br>
+                <h4>Deaths</h4>
+                <input type="radio" name="data_type" value="total_deaths">Total Deaths<br>
+                <input type="radio" name="data_type" value="new_deaths">New Deaths<br>
+                <h4>Hospital & ICU</h4>
+                <input type="radio" name="data_type" value="icu_patients">ICU Patients<br>
+                <input type="radio" name="data_type" value="hosp_patients">Hospital Patients<br>
+                <h4>Tests</h4>
+                <input type="radio" name="data_type" value="total_tests">Total Tests<br>
+                <input type="radio" name="data_type" value="new_tests">New Tests<br>
+                <h4>Vaccinations</h4>
+                <input type="radio" name="data_type" value="total_vaccinations">Total Vaccinations<br>
+                <input type="radio" name="data_type" value="people_vaccinated">People Vaccinated<br>
+                <input type="radio" name="data_type" value="people_fully_vaccinated">People Fully Vaccinated<br>
+                <input type="radio" name="data_type" value="new_vaccinations">New Vaccinations<br>
+            </form>
+
+
+            <div id="chart_div">
+                <div id="data_type_outer">
+                    <div id="data_type_inner">
+                        <select id="data_type_selection" onchange="select_change(this)">
+                            <optgroup label="Cases"></optgroup>
+                            <option value="total_cases">Total Cases</option>
+                            <option value="new_cases">New Cases</option>
+                            <optgroup label="Deaths"></optgroup>
+                            <option value="total_deaths">Total Deaths</option>
+                            <option value="new_deaths">New Deaths</option>
+                            <optgroup label="Hospital & ICU"></optgroup>
+                            <option value="icu_patients">ICU Patients</option>
+                            <option value="hosp_patients">Hospital Patients</option>
+                            <optgroup label="Tests"></optgroup>
+                            <option value="total_tests">Total Tests</option>
+                            <option value="new_tests">New Tests</option><br>
+                            <optgroup label="Vaccinations"></optgroup>
+                            <option value="total_vaccinations">Total Vaccinations</option>
+                            <option value="people_vaccinated">People Vaccinated</option>
+                            <option value="people_fully_vaccinated">People Fully Vaccinated</option>
+                            <option value="new_vaccinations">New Vaccinations</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="date_selection">
+
+                    <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
+                    <input type="range" id="date_slider" min="0" style="width: 600px;" oninput="slider_change(this)">
+                </div>
+
+                <div id="main">
+                    <h1 id="chart_title">Total Covid-19 Cases per Million People</h1>
+                    <p id="author_title">This web app is accessible via <a
+                            href="https://codypeters.dev">codypeters.dev</a>
+                    </p>
+                    <p id="author_title">Data provided by <a href="https://covid.ourworldindata.org/">
+                            <i>Our World in Data</i>
+                        </a></p>
+                    <svg id="choropleth" viewbox="0, 0, 1000, 800" preserveAspectRatio='xMidYMid meet'></svg>
+                </div>
+            </div>
+        </div>
+        <!-- Scripts -->
+        <script src="js/covid/main.js"></script>
+        <script src="js/covid/choropleth_switches.js"></script>
+        <script src="js/covid/choropleth_funcs.js"></script>
+        <script src="js/covid/choropleth.js"></script>
+    </body>
+
+    <footer>
+        <div id="footer_inner">
+            <a id="owid_link" href="https://ourworldindata.org/"><img src="images/owid_logo.png"></a>
+
+            <p>&copy; 2022 Cody Peters</p>
+
+            <div id="social_container">
+                <a class="social_background" href="https://github.com/cdy-peters/covid-timeline">
+                    <i class="bi bi-github"></i>
+                </a>
+                <a class="social_background" href="https://linkedin.com/in/cdy-peters">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+                <a class="social_background" href="https://codypeters.dev">
+                    <i class="bi bi-person-fill"></i>
+                </a>
+                <br style="clear: both;">
+            </div>
+        </div>
+        <div id="sources">
+            <div id="authors">
+                <h3>Authors</h3>
+                <p>This data has been collected, aggregated, and documented by Cameron Appel, Diana Beltekian, Daniel
+                    Gavrilov, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Edouard Mathieu, Esteban Ortiz-Ospina,
+                    Hannah
+                    Ritchie, Lucas Rodés-Guirao, Max Roser.
+                </p>
+            </div>
+            <div id="references">
+                <h3>References</h3>
+                <div id="reference">
+                    <h5>Vaccinations dataset</h5>
+                    <p>Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations. Nat
+                        Hum
+                        Behav (2021).</p>
+                    <a href="https://doi.org/10.1038/s41562-021-01122-8">https://doi.org/10.1038/s41562-021-01122-8</a>
+                </div>
+                <br>
+                <div id="reference">
+                    <h5>Testing dataset</h5>
+                    <p>Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci
+                        Data
+                        7, 345 (2020).</p>
+                    <a href="https://doi.org/10.1038/s41597-020-00688-8">https://doi.org/10.1038/s41597-020-00688-8</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div id="loading_bg">
+
+</div>
+
+</html>
