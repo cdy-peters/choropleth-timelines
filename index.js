@@ -24,6 +24,10 @@ app.get("/monkeypox", (req, res) => {
   });
 });
 
+app.get("/noscript", (req, res) => {
+  res.render("pages/noscript");
+});
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
