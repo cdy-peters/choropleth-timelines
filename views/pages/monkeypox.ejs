@@ -3,25 +3,23 @@
 
 <head>
     <%- include('../partials/head.ejs') %>
-        <title>Monkeypox Timeline</title>
+        <meta name="description" content="Visualization of Monkeypox around the world along a historical timeline.">
 </head>
 
 <div class="flex-wrapper">
 
     <nav>
-        <h4><a href="/">Choropleth Timelines</a></h4>
-        <div class="nav-btns">
-            <a href="/covid">Covid</a>
-            <a href="/monkeypox" class="nav-active">Monkeypox</a>
-        </div>
+        <%- include('../partials/nav.ejs') %>
     </nav>
 
     <body>
         <div id="content_div">
             <form id="data_type_form" name="data_type_radio">
                 <h4>Cases</h4>
-                <input type="radio" name="data_type" value="total_cases" checked>Total Cases<br>
-                <input type="radio" name="data_type" value="new_cases">New Cases<br>
+                <label><input type="radio" name="data_type" value="total_cases" checked> Total Cases</label>
+                <br>
+                <label><input type="radio" name="data_type" value="new_cases"> New Cases</label>
+                <br>
             </form>
 
             <div id="chart_div">
@@ -36,8 +34,10 @@
                 </div>
                 <div id="date_selection">
 
-                    <input type="date" id="date_picker" min="2022-05-06" onchange="picker_change(this)" required>
-                    <input type="range" id="date_slider" min="0" style="width: 600px;" oninput="slider_change(this)">
+                    <input type="date" id="date_picker" aria-label="Date picker" min="2022-05-06"
+                        onchange="picker_change(this)" required>
+                    <input type="range" id="date_slider" aria-label="Date slider" min="0" style="width: 600px;"
+                        oninput="slider_change(this)">
                 </div>
 
                 <div id="main">
@@ -52,35 +52,36 @@
                 </div>
             </div>
         </div>
+
         <!-- Scripts -->
-        <script src="js/monkeypox/main.js"></script>
-        <script src="js/monkeypox/choropleth_switches.js"></script>
-        <script src="js/monkeypox/choropleth_funcs.js"></script>
-        <script src="js/monkeypox/choropleth.js"></script>
+        <script src="js/monkeypox/main.min.js"></script>
+        <script src="js/monkeypox/choropleth_switches.min.js"></script>
+        <script src="js/monkeypox/choropleth_funcs.min.js"></script>
+        <script src="js/monkeypox/choropleth.min.js"></script>
     </body>
 
     <footer>
         <%- include('../partials/footer.ejs') %>
-        <div id="sources">
-            <div id="authors">
-                <h3>Authors</h3>
-                <p>This data has been collected, aggregated, and documented by Edouard Mathieu, Fiona Spooner,
-                    Saloni
-                    Dattani, Hannah Ritchie and Max Roser.
-                </p>
-            </div>
-            <div id="references">
-                <h3>References</h3>
-                <div id="reference">
-                    <h5>Global.health Monkeypox (accessed on 2022-08-26)</h5>
-                    <p>Kraemer, Tegally, Pigott, Dasgupta, Sheldon, Wilkinson, Schultheiss, et al. Tracking the 2022
-                        Monkeypox Outbreak with Epidemiological Data in Real-Time. The Lancet Infectious Diseases.
+            <div id="sources">
+                <div id="authors">
+                    <h1>Authors</h1>
+                    <p>This data has been collected, aggregated, and documented by Edouard Mathieu, Fiona Spooner,
+                        Saloni
+                        Dattani, Hannah Ritchie and Max Roser.
                     </p>
-                    <a
-                        href="https://doi.org/10.1016/S1473-3099(22)00359-0">https://doi.org/10.1016/S1473-3099(22)00359-0</a>
+                </div>
+                <div id="references">
+                    <h1>References</h1>
+                    <div id="reference">
+                        <h2>Global.health Monkeypox (accessed on 2022-08-26)</h2>
+                        <p>Kraemer, Tegally, Pigott, Dasgupta, Sheldon, Wilkinson, Schultheiss, et al. Tracking the 2022
+                            Monkeypox Outbreak with Epidemiological Data in Real-Time. The Lancet Infectious Diseases.
+                        </p>
+                        <a
+                            href="https://doi.org/10.1016/S1473-3099(22)00359-0">https://doi.org/10.1016/S1473-3099(22)00359-0</a>
+                    </div>
                 </div>
             </div>
-        </div>
     </footer>
 </div>
 

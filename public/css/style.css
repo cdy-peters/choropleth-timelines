@@ -18,11 +18,19 @@ body {
 h1 {
   margin: 0;
   font-size: 20px;
-  text-align: center;
+}
+
+h2 {
+  margin: 0;
+  font-size: 18px;
 }
 
 #title {
   margin: 20px;
+}
+
+#chart_title {
+  text-align: center;
 }
 
 .home-btn {
@@ -85,7 +93,7 @@ nav h4 a {
   background-color: #afafaf;
 }
 
-.nav-active {
+#nav-active {
   background-color: #afafaf;
 }
 

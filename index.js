@@ -7,15 +7,19 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.render(__dirname + "/views/pages/index");
+  res.render(__dirname + "/views/pages/index", {
+    title: "Choropleth Timelines",
+  });
 });
 
 app.get("/covid", (req, res) => {
-  res.render(__dirname + "/views/pages/covid");
+  res.render(__dirname + "/views/pages/covid", { title: "Covid-19 Timeline" });
 });
 
 app.get("/monkeypox", (req, res) => {
-  res.render(__dirname + "/views/pages/monkeypox");
+  res.render(__dirname + "/views/pages/monkeypox", {
+    title: "Monkeypox Timeline",
+  });
 });
 
 app.listen(PORT, () => {

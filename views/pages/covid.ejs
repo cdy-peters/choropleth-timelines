@@ -3,39 +3,60 @@
 
 <head>
     <%- include('../partials/head.ejs') %>
-        <title>Covid-19 Timeline</title>
+        <meta name="description" content="Visualization of Covid-19 around the world along a historical timeline.">
 </head>
 
 <div class="flex-wrapper">
 
     <nav>
-        <h4><a href="/">Choropleth Timelines</a></h4>
-        <div class="nav-btns">
-            <a href="/covid" class="nav-active">Covid</a>
-            <a href="/monkeypox">Monkeypox</a>
-        </div>
+        <%- include('../partials/nav.ejs') %>
     </nav>
 
     <body>
         <div id="content_div">
             <form id="data_type_form" name="data_type_radio">
                 <h4>Cases</h4>
-                <input type="radio" name="data_type" value="total_cases" checked>Total Cases<br>
-                <input type="radio" name="data_type" value="new_cases">New Cases<br>
+
+                <label><input type="radio" name="data_type" value="total_cases" checked> Total Cases</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="new_cases"> New Cases</label>
+                <br>
                 <h4>Deaths</h4>
-                <input type="radio" name="data_type" value="total_deaths">Total Deaths<br>
-                <input type="radio" name="data_type" value="new_deaths">New Deaths<br>
+
+                <label><input type="radio" name="data_type" value="total_deaths"> Total Deaths</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="new_deaths"> New Deaths</label>
+                <br>
                 <h4>Hospital & ICU</h4>
-                <input type="radio" name="data_type" value="icu_patients">ICU Patients<br>
-                <input type="radio" name="data_type" value="hosp_patients">Hospital Patients<br>
+
+                <label><input type="radio" name="data_type" value="icu_patients"> ICU Patients</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="hosp_patients"> Hospital Patients</label>
+                <br>
                 <h4>Tests</h4>
-                <input type="radio" name="data_type" value="total_tests">Total Tests<br>
-                <input type="radio" name="data_type" value="new_tests">New Tests<br>
+
+                <label><input type="radio" name="data_type" value="total_tests"> Total Tests</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="new_tests"> New Tests</label>
+                <br>
                 <h4>Vaccinations</h4>
-                <input type="radio" name="data_type" value="total_vaccinations">Total Vaccinations<br>
-                <input type="radio" name="data_type" value="people_vaccinated">People Vaccinated<br>
-                <input type="radio" name="data_type" value="people_fully_vaccinated">People Fully Vaccinated<br>
-                <input type="radio" name="data_type" value="new_vaccinations">New Vaccinations<br>
+
+                <label><input type="radio" name="data_type" value="total_vaccinations"> Total Vaccinations</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="people_vaccinated"> People Vaccinated</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="people_fully_vaccinated"> People Fully
+                    Vaccinated</label>
+                <br>
+
+                <label><input type="radio" name="data_type" value="new_vaccinations"> New Vaccinations</label>
+                <br>
             </form>
 
 
@@ -65,8 +86,10 @@
                 </div>
                 <div id="date_selection">
 
-                    <input type="date" id="date_picker" min="2020-01-01" onchange="picker_change(this)" required>
-                    <input type="range" id="date_slider" min="0" style="width: 600px;" oninput="slider_change(this)">
+                    <input type="date" id="date_picker" aria-label="Date picker" min="2020-01-01"
+                        onchange="picker_change(this)" required>
+                    <input type="range" id="date_slider" aria-label="Date slider" min="0" style="width: 600px;"
+                        oninput="slider_change(this)">
                 </div>
 
                 <div id="main">
@@ -81,48 +104,49 @@
                 </div>
             </div>
         </div>
+
         <!-- Scripts -->
-        <script src="js/covid/main.js"></script>
-        <script src="js/covid/choropleth_switches.js"></script>
-        <script src="js/covid/choropleth_funcs.js"></script>
-        <script src="js/covid/choropleth.js"></script>
+        <script src="js/covid/main.min.js"></script>
+        <script src="js/covid/choropleth_switches.min.js"></script>
+        <script src="js/covid/choropleth_funcs.min.js"></script>
+        <script src="js/covid/choropleth.min.js"></script>
     </body>
 
     <footer>
         <%- include('../partials/footer.ejs') %>
-        <div id="sources">
-            <div id="authors">
-                <h3>Authors</h3>
-                <p>This data has been collected, aggregated, and documented by Cameron Appel, Diana Beltekian,
-                    Daniel
-                    Gavrilov, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Edouard Mathieu, Esteban Ortiz-Ospina,
-                    Hannah
-                    Ritchie, Lucas Rodés-Guirao, Max Roser.
-                </p>
-            </div>
-            <div id="references">
-                <h3>References</h3>
-                <div id="reference">
-                    <h5>Vaccinations dataset</h5>
-                    <p>Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations.
-                        Nat
-                        Hum
-                        Behav (2021).</p>
-                    <a
-                        href="https://doi.org/10.1038/s41562-021-01122-8">https://doi.org/10.1038/s41562-021-01122-8</a>
+            <div id="sources">
+                <div id="authors">
+                    <h1>Authors</h1>
+                    <p>This data has been collected, aggregated, and documented by Cameron Appel, Diana Beltekian,
+                        Daniel
+                        Gavrilov, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Edouard Mathieu, Esteban Ortiz-Ospina,
+                        Hannah
+                        Ritchie, Lucas Rodés-Guirao, Max Roser.
+                    </p>
                 </div>
-                <br>
-                <div id="reference">
-                    <h5>Testing dataset</h5>
-                    <p>Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing.
-                        Sci
-                        Data
-                        7, 345 (2020).</p>
-                    <a
-                        href="https://doi.org/10.1038/s41597-020-00688-8">https://doi.org/10.1038/s41597-020-00688-8</a>
+                <div id="references">
+                    <h1>References</h1>
+                    <div id="reference">
+                        <h2>Vaccinations dataset</h2>
+                        <p>Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations.
+                            Nat
+                            Hum
+                            Behav (2021).</p>
+                        <a
+                            href="https://doi.org/10.1038/s41562-021-01122-8">https://doi.org/10.1038/s41562-021-01122-8</a>
+                    </div>
+                    <br>
+                    <div id="reference">
+                        <h2>Testing dataset</h2>
+                        <p>Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing.
+                            Sci
+                            Data
+                            7, 345 (2020).</p>
+                        <a
+                            href="https://doi.org/10.1038/s41597-020-00688-8">https://doi.org/10.1038/s41597-020-00688-8</a>
+                    </div>
                 </div>
             </div>
-        </div>
     </footer>
 </div>
 
