@@ -4,20 +4,22 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.set("view engine", "ejs");
+
+app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.render(__dirname + "/views/pages/index", {
+  res.render("pages/index", {
     title: "Choropleth Timelines",
   });
 });
 
 app.get("/covid", (req, res) => {
-  res.render(__dirname + "/views/pages/covid", { title: "Covid-19 Timeline" });
+  res.render("pages/covid", { title: "Covid-19 Timeline" });
 });
 
 app.get("/monkeypox", (req, res) => {
-  res.render(__dirname + "/views/pages/monkeypox", {
+  res.render("pages/monkeypox", {
     title: "Monkeypox Timeline",
   });
 });
