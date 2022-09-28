@@ -2,15 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monkeypox Timeline</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js"></script>
+    <%- include('../partials/head.ejs') %>
+        <title>Monkeypox Timeline</title>
 </head>
 
 <div class="flex-wrapper">
@@ -67,28 +60,12 @@
     </body>
 
     <footer>
-        <div id="footer_inner">
-            <a id="owid_link" href="https://ourworldindata.org/"><img src="images/owid_logo.png"></a>
-
-            <p>&copy; 2022 Cody Peters</p>
-
-            <div id="social_container">
-                <a class="social_background" href="https://github.com/cdy-peters/covid-timeline">
-                    <i class="bi bi-github"></i>
-                </a>
-                <a class="social_background" href="https://linkedin.com/in/cdy-peters">
-                    <i class="bi bi-linkedin"></i>
-                </a>
-                <a class="social_background" href="https://codypeters.dev">
-                    <i class="bi bi-person-fill"></i>
-                </a>
-                <br style="clear: both;">
-            </div>
-        </div>
+        <%- include('../partials/footer.ejs') %>
         <div id="sources">
             <div id="authors">
                 <h3>Authors</h3>
-                <p>This data has been collected, aggregated, and documented by Edouard Mathieu, Fiona Spooner, Saloni
+                <p>This data has been collected, aggregated, and documented by Edouard Mathieu, Fiona Spooner,
+                    Saloni
                     Dattani, Hannah Ritchie and Max Roser.
                 </p>
             </div>
@@ -97,7 +74,8 @@
                 <div id="reference">
                     <h5>Global.health Monkeypox (accessed on 2022-08-26)</h5>
                     <p>Kraemer, Tegally, Pigott, Dasgupta, Sheldon, Wilkinson, Schultheiss, et al. Tracking the 2022
-                        Monkeypox Outbreak with Epidemiological Data in Real-Time. The Lancet Infectious Diseases.</p>
+                        Monkeypox Outbreak with Epidemiological Data in Real-Time. The Lancet Infectious Diseases.
+                    </p>
                     <a
                         href="https://doi.org/10.1016/S1473-3099(22)00359-0">https://doi.org/10.1016/S1473-3099(22)00359-0</a>
                 </div>

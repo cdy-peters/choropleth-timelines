@@ -1,19 +1,21 @@
 const express = require("express");
+const ejs = require("ejs");
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/views/index.html");
+  res.render(__dirname + "/views/pages/index");
 });
 
 app.get("/covid", (req, res) => {
-  res.sendFile(__dirname + "/views/covid.html");
+  res.render(__dirname + "/views/pages/covid");
 });
 
 app.get("/monkeypox", (req, res) => {
-  res.sendFile(__dirname + "/views/monkeypox.html");
+  res.render(__dirname + "/views/pages/monkeypox");
 });
 
 app.listen(PORT, () => {

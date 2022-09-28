@@ -2,15 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covid-19 Timeline</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js"></script>
+    <%- include('../partials/head.ejs') %>
+        <title>Covid-19 Timeline</title>
 </head>
 
 <div class="flex-wrapper">
@@ -96,28 +89,12 @@
     </body>
 
     <footer>
-        <div id="footer_inner">
-            <a id="owid_link" href="https://ourworldindata.org/"><img src="images/owid_logo.png"></a>
-
-            <p>&copy; 2022 Cody Peters</p>
-
-            <div id="social_container">
-                <a class="social_background" href="https://github.com/cdy-peters/covid-timeline">
-                    <i class="bi bi-github"></i>
-                </a>
-                <a class="social_background" href="https://linkedin.com/in/cdy-peters">
-                    <i class="bi bi-linkedin"></i>
-                </a>
-                <a class="social_background" href="https://codypeters.dev">
-                    <i class="bi bi-person-fill"></i>
-                </a>
-                <br style="clear: both;">
-            </div>
-        </div>
+        <%- include('../partials/footer.ejs') %>
         <div id="sources">
             <div id="authors">
                 <h3>Authors</h3>
-                <p>This data has been collected, aggregated, and documented by Cameron Appel, Diana Beltekian, Daniel
+                <p>This data has been collected, aggregated, and documented by Cameron Appel, Diana Beltekian,
+                    Daniel
                     Gavrilov, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Edouard Mathieu, Esteban Ortiz-Ospina,
                     Hannah
                     Ritchie, Lucas Rodés-Guirao, Max Roser.
@@ -127,18 +104,22 @@
                 <h3>References</h3>
                 <div id="reference">
                     <h5>Vaccinations dataset</h5>
-                    <p>Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations. Nat
+                    <p>Mathieu, E., Ritchie, H., Ortiz-Ospina, E. et al. A global database of COVID-19 vaccinations.
+                        Nat
                         Hum
                         Behav (2021).</p>
-                    <a href="https://doi.org/10.1038/s41562-021-01122-8">https://doi.org/10.1038/s41562-021-01122-8</a>
+                    <a
+                        href="https://doi.org/10.1038/s41562-021-01122-8">https://doi.org/10.1038/s41562-021-01122-8</a>
                 </div>
                 <br>
                 <div id="reference">
                     <h5>Testing dataset</h5>
-                    <p>Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci
+                    <p>Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing.
+                        Sci
                         Data
                         7, 345 (2020).</p>
-                    <a href="https://doi.org/10.1038/s41597-020-00688-8">https://doi.org/10.1038/s41597-020-00688-8</a>
+                    <a
+                        href="https://doi.org/10.1038/s41597-020-00688-8">https://doi.org/10.1038/s41597-020-00688-8</a>
                 </div>
             </div>
         </div>
